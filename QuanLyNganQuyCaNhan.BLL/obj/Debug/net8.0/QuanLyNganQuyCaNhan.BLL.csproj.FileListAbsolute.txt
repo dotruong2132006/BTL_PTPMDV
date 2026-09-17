@@ -1,0 +1,15 @@
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.deps.json
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.pdb
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.pdb
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.csproj.AssemblyReference.cache
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.AssemblyInfoInputs.cache
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.AssemblyInfo.cs
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.csproj.CoreCompileInputs.cache
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNg.ECD3E58D.Up2Date
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\refint\QuanLyNganQuyCaNhan.BLL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.pdb
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\ref\QuanLyNganQuyCaNhan.BLL.dll

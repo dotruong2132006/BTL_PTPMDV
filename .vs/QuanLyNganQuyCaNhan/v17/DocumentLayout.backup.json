@@ -1,0 +1,189 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5DD2D781-AB78-41D0-A708-A4CA42A10093}|QuanLyNganQuyCaNhan.DAL\\QuanLyNganQuyCaNhan.DAL.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan.dal\\connections\\dapperconnectionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DD2D781-AB78-41D0-A708-A4CA42A10093}|QuanLyNganQuyCaNhan.DAL\\QuanLyNganQuyCaNhan.DAL.csproj|solutionrelative:quanlynganquycanhan.dal\\connections\\dapperconnectionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|solutionrelative:quanlynganquycanhan\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{252EE72B-334A-4C21-9AC3-FD46949446FD}|QuanLyNganQuyCaNhan.BLL\\QuanLyNganQuyCaNhan.BLL.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan.bll\\interfaces\\inguoidungservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{252EE72B-334A-4C21-9AC3-FD46949446FD}|QuanLyNganQuyCaNhan.BLL\\QuanLyNganQuyCaNhan.BLL.csproj|solutionrelative:quanlynganquycanhan.bll\\interfaces\\inguoidungservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{252EE72B-334A-4C21-9AC3-FD46949446FD}|QuanLyNganQuyCaNhan.BLL\\QuanLyNganQuyCaNhan.BLL.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan.bll\\services\\nguoidungservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{252EE72B-334A-4C21-9AC3-FD46949446FD}|QuanLyNganQuyCaNhan.BLL\\QuanLyNganQuyCaNhan.BLL.csproj|solutionrelative:quanlynganquycanhan.bll\\services\\nguoidungservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|solutionrelative:quanlynganquycanhan\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DD2D781-AB78-41D0-A708-A4CA42A10093}|QuanLyNganQuyCaNhan.DAL\\QuanLyNganQuyCaNhan.DAL.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan.dal\\repositories\\nguoidungrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DD2D781-AB78-41D0-A708-A4CA42A10093}|QuanLyNganQuyCaNhan.DAL\\QuanLyNganQuyCaNhan.DAL.csproj|solutionrelative:quanlynganquycanhan.dal\\repositories\\nguoidungrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|solutionrelative:quanlynganquycanhan\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan\\quanlynganquycanhan.api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{64E29003-523C-4E3B-9484-EDA10E1C41C4}|QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj|solutionrelative:quanlynganquycanhan\\quanlynganquycanhan.api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{252EE72B-334A-4C21-9AC3-FD46949446FD}|QuanLyNganQuyCaNhan.BLL\\QuanLyNganQuyCaNhan.BLL.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{252EE72B-334A-4C21-9AC3-FD46949446FD}|QuanLyNganQuyCaNhan.BLL\\QuanLyNganQuyCaNhan.BLL.csproj|solutionrelative:quanlynganquycanhan.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DD2D781-AB78-41D0-A708-A4CA42A10093}|QuanLyNganQuyCaNhan.DAL\\QuanLyNganQuyCaNhan.DAL.csproj|c:\\ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\quanlynganquycanhan\\quanlynganquycanhan.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5DD2D781-AB78-41D0-A708-A4CA42A10093}|QuanLyNganQuyCaNhan.DAL\\QuanLyNganQuyCaNhan.DAL.csproj|solutionrelative:quanlynganquycanhan.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NguoiDungService.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.BLL\\Services\\NguoiDungService.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan.BLL\\Services\\NguoiDungService.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.BLL\\Services\\NguoiDungService.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan.BLL\\Services\\NguoiDungService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T02:33:37.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "INguoiDungService.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.BLL\\Interfaces\\INguoiDungService.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan.BLL\\Interfaces\\INguoiDungService.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.BLL\\Interfaces\\INguoiDungService.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan.BLL\\Interfaces\\INguoiDungService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T02:32:34.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\Program.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan\\Program.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\Program.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T02:24:55.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\appsettings.json",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan\\appsettings.json",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\appsettings.json",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-17T02:21:18.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DapperConnectionFactory.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.DAL\\Connections\\DapperConnectionFactory.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan.DAL\\Connections\\DapperConnectionFactory.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.DAL\\Connections\\DapperConnectionFactory.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan.DAL\\Connections\\DapperConnectionFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T02:19:22.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NguoiDungRepository.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.DAL\\Repositories\\NguoiDungRepository.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan.DAL\\Repositories\\NguoiDungRepository.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.DAL\\Repositories\\NguoiDungRepository.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan.DAL\\Repositories\\NguoiDungRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T02:27:59.612Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T02:16:26.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.BLL\\Class1.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan.BLL\\Class1.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.BLL\\Class1.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan.BLL\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T09:42:23.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.DAL\\Class1.cs",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan.DAL\\Class1.cs",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.DAL\\Class1.cs",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan.DAL\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-16T09:41:38.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "QuanLyNganQuyCaNhan.API",
+              "DocumentMoniker": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj",
+              "RelativeDocumentMoniker": "QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj",
+              "ToolTip": "C:\\Ph\u00E1t tri\u1EC3n ph\u1EA7n m\u1EC1m h\u01B0\u1EDBng d\u1ECBch v\u1EE5\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj",
+              "RelativeToolTip": "QuanLyNganQuyCaNhan\\QuanLyNganQuyCaNhan.API.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-16T09:36:42.372Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

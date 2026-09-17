@@ -1,0 +1,12 @@
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.deps.json
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\bin\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.pdb
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.csproj.AssemblyReference.cache
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.AssemblyInfoInputs.cache
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.AssemblyInfo.cs
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.csproj.CoreCompileInputs.cache
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\refint\QuanLyNganQuyCaNhan.DAL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.pdb
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\ref\QuanLyNganQuyCaNhan.DAL.dll
