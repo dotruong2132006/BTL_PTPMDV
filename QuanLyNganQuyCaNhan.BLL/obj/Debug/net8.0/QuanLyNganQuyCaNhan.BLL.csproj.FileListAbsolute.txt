@@ -13,3 +13,4 @@ C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNga
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\refint\QuanLyNganQuyCaNhan.BLL.dll
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.pdb
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\ref\QuanLyNganQuyCaNhan.BLL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.BLL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.BLL.sourcelink.json

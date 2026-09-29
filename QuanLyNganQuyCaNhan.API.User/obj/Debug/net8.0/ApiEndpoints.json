@@ -1,0 +1,65 @@
+[
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.User.Controllers.ViController",
+    "Method": "LayDanhSach",
+    "RelativePath": "api/Vi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.User.Controllers.ViController",
+    "Method": "ThemVi",
+    "RelativePath": "api/Vi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.User.DTOs.ThemViDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.User.Controllers.ViController",
+    "Method": "CapNhatVi",
+    "RelativePath": "api/Vi/{maVi}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maVi",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.User.DTOs.CapNhatViDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.User.Controllers.ViController",
+    "Method": "XoaMemVi",
+    "RelativePath": "api/Vi/{maVi}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maVi",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

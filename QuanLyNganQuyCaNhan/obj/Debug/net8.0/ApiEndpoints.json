@@ -1,0 +1,128 @@
+[
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.NguoiDungController",
+    "Method": "LayDanhSach",
+    "RelativePath": "api/NguoiDung",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.NguoiDungController",
+    "Method": "ThemNguoiDung",
+    "RelativePath": "api/NguoiDung",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.DTOs.ThemNguoiDungDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.NguoiDungController",
+    "Method": "CapNhatNguoiDung",
+    "RelativePath": "api/NguoiDung/{maNguoiDung}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maNguoiDung",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.DTOs.CapNhatNguoiDungDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.NguoiDungController",
+    "Method": "XoaMemNguoiDung",
+    "RelativePath": "api/NguoiDung/{maNguoiDung}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maNguoiDung",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.ViController",
+    "Method": "LayDanhSach",
+    "RelativePath": "api/Vi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.ViController",
+    "Method": "ThemVi",
+    "RelativePath": "api/Vi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.DTOs.ThemViDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.ViController",
+    "Method": "CapNhatVi",
+    "RelativePath": "api/Vi/{maVi}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maVi",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.DTOs.CapNhatViDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Controllers.ViController",
+    "Method": "XoaMemVi",
+    "RelativePath": "api/Vi/{maVi}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maVi",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

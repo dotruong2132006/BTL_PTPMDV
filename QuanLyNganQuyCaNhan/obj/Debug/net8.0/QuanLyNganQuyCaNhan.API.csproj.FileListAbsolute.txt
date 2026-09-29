@@ -78,3 +78,7 @@ C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNga
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\obj\Debug\net8.0\QuanLyNganQuyCaNhan.API.pdb
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\obj\Debug\net8.0\QuanLyNganQuyCaNhan.API.genruntimeconfig.cache
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\obj\Debug\net8.0\ref\QuanLyNganQuyCaNhan.API.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\obj\Debug\net8.0\QuanLyNganQuyCaNhan.API.sourcelink.json
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\bin\Debug\net8.0\BCrypt-Net-Next.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan\bin\Debug\net8.0\Otp.NET.dll

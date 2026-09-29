@@ -1,0 +1,217 @@
+[
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.DangNhapController",
+    "Method": "DangNhap",
+    "RelativePath": "api/DangNhap",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.DangNhapDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.DangNhapController",
+    "Method": "DangXuat",
+    "RelativePath": "api/DangNhap/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.RefreshTokenDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.DangNhapController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/DangNhap/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.RefreshTokenDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.DangNhapController",
+    "Method": "XacNhanDangNhap2FA",
+    "RelativePath": "api/DangNhap/xacnhan-2fa",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.XacNhanDangNhap2FADTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.HaiFaController",
+    "Method": "Bat2FA",
+    "RelativePath": "api/HaiFa/bat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.HaiFaController",
+    "Method": "TaoQR",
+    "RelativePath": "api/HaiFa/qr",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.HaiFaController",
+    "Method": "Tat2FA",
+    "RelativePath": "api/HaiFa/tat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.HaiFaController",
+    "Method": "XacNhan2FA",
+    "RelativePath": "api/HaiFa/xacnhan",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.XacNhan2FADTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.KiemTraTokenController",
+    "Method": "KiemTraToken",
+    "RelativePath": "api/KiemTraToken",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.NguoiDungController",
+    "Method": "LayDanhSach",
+    "RelativePath": "api/NguoiDung",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.NguoiDungController",
+    "Method": "ThemNguoiDung",
+    "RelativePath": "api/NguoiDung",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.ThemNguoiDungDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.NguoiDungController",
+    "Method": "CapNhatNguoiDung",
+    "RelativePath": "api/NguoiDung/{maNguoiDung}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maNguoiDung",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.CapNhatNguoiDungDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.NguoiDungController",
+    "Method": "XoaMemNguoiDung",
+    "RelativePath": "api/NguoiDung/{maNguoiDung}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maNguoiDung",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.QuenMatKhauController",
+    "Method": "DatLaiMatKhau",
+    "RelativePath": "api/QuenMatKhau/dat-lai",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.DatLaiMatKhauDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLyNganQuyCaNhan.API.Admin.Controllers.QuenMatKhauController",
+    "Method": "YeuCauQuenMatKhau",
+    "RelativePath": "api/QuenMatKhau/yeu-cau",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "duLieu",
+        "Type": "QuanLyNganQuyCaNhan.API.Admin.DTOs.YeuCauQuenMatKhauDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

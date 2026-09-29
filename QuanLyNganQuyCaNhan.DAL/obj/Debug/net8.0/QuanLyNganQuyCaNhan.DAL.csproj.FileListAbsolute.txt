@@ -10,3 +10,4 @@ C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNga
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\refint\QuanLyNganQuyCaNhan.DAL.dll
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.pdb
 C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\ref\QuanLyNganQuyCaNhan.DAL.dll
+C:\Phát triển phần mềm hướng dịch vụ\QuanLyNganQuyCaNhan\QuanLyNganQuyCaNhan.DAL\obj\Debug\net8.0\QuanLyNganQuyCaNhan.DAL.sourcelink.json
