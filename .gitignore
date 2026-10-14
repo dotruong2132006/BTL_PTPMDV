@@ -37,6 +37,7 @@ secrets.json
 # Private database backups and exported personal data
 database/backups/
 *.bak
+*.bundle
 *.mdf
 *.ldf
 *.db
