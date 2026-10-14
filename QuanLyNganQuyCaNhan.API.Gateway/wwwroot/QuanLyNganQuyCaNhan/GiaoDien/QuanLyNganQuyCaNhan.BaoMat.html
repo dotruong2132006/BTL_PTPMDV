@@ -1,0 +1,35 @@
+<div class="page-heading"><div><span class="eyebrow">TÀI KHOẢN CỦA BẠN</span><h1>Bảo mật tài khoản</h1><p>Bảo vệ đăng nhập và chuẩn bị cách khôi phục mật khẩu.</p></div><span class="stat-icon"><svg class="icon"><use href="#shield"></use></svg></span></div>
+<div class="error-box" ng-if="bm.loi" role="alert">{{bm.loi}}</div>
+<section class="panel recovery-panel" ng-if="bm.maKhoiPhuc.length" aria-labelledby="ma-khoi-phuc-title">
+    <div class="warning important-warning" role="alert"><h2 id="ma-khoi-phuc-title">{{bm.canhBao.tieuDe || 'QUAN TRỌNG: PHẢI LƯU BỘ MÃ KHÔI PHỤC'}}</h2><p>{{bm.canhBao.noiDung}}</p><strong>Bộ mã chỉ được hiển thị một lần. Nếu mất mật khẩu và không giữ mã, bạn sẽ không thể dùng cách khôi phục này.</strong><p>Mỗi mã chỉ dùng một lần. Không chia sẻ mã với người khác. Toàn bộ bộ mã cũ đã hết hiệu lực khi tạo bộ mới.</p></div>
+    <div class="code-grid"><code class="recovery-code" ng-repeat="ma in bm.maKhoiPhuc track by $index">{{ma}}</code></div>
+    <div class="actions"><button class="button button-primary" ng-click="bm.taiMa()">↓ Tải bộ mã (.txt)</button><button class="button" ng-click="bm.saoChep()">Sao chép bộ mã</button></div>
+    <label class="checkbox saved-confirmation"><input type="checkbox" ng-model="bm.daLuu"><span>Tôi đã kiểm tra và lưu đầy đủ bộ mã khôi phục ở nơi an toàn.</span></label><button class="button" ng-click="bm.dongBoMa()" ng-disabled="!bm.daLuu">Đã lưu — đóng bộ mã</button>
+</section>
+<div class="split-panel">
+    <section class="panel"><div class="panel-heading"><h3>Mã khôi phục mật khẩu</h3><span class="badge">Không cần email</span></div>
+        <p class="notice">Khi quên mật khẩu, nhập tên đăng nhập, một mã khôi phục chưa dùng và mật khẩu mới tại màn hình “Quên mật khẩu”. Nhập thêm OTP nếu tài khoản đã bật 2FA.</p>
+        <p ng-if="bm.soMa"><strong>{{bm.soMa.soMaConLai}}</strong> mã chưa sử dụng.<br><small class="muted">{{bm.soMa.thongBao}}</small></p>
+        <div class="warning" ng-if="bm.soMa.nenTaoLaiBoMa">Nên tạo và lưu bộ mã mới để chuẩn bị cho lần khôi phục tiếp theo.</div>
+        <form name="maForm" ng-submit="bm.taoMa(maForm)" novalidate ng-if="!bm.maKhoiPhuc.length">
+            <label class="security-field"><span>Mật khẩu hiện tại *</span><input type="password" ng-model="bm.duLieu.matKhauHienTai" required maxlength="128" autocomplete="current-password"></label>
+            <label class="security-field"><span>OTP {{bm.trangThai2FA === true ? '(bắt buộc khi đã bật 2FA)' : '(chỉ nhập nếu đã bật 2FA)'}}</span><input type="text" ng-model="bm.duLieu.maOTP" ng-required="bm.trangThai2FA === true" ng-pattern="/^[0-9]{6}$/" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6 chữ số"></label>
+            <div class="warning"><strong>QUAN TRỌNG: Bạn phải lưu bộ mã sau khi tạo.</strong><p>Tạo bộ mã mới sẽ làm toàn bộ mã cũ hết hiệu lực. Bộ mã mới không được gửi qua email và không được lưu lại trong trình duyệt để xem lần sau.</p></div>
+            <label class="checkbox"><input type="checkbox" ng-model="bm.duLieu.daHieuVaSeLuuMa" required><span>Tôi đã hiểu và sẽ lưu bộ mã khôi phục ở nơi an toàn.</span></label><p class="form-error" ng-if="maForm.$submitted && maForm.$invalid">Nhập mật khẩu, OTP hợp lệ khi cần và xác nhận sẽ lưu bộ mã.</p>
+            <div class="card-actions"><button class="button button-primary" ng-disabled="bm.dangTaoMa">{{bm.dangTaoMa ? 'Đang tạo…' : 'Tạo bộ mã khôi phục'}}</button><button type="button" class="button button-quiet" ng-click="bm.taiSoMa()">Cập nhật số mã</button></div>
+        </form>
+    </section>
+    <section class="panel"><div class="panel-heading"><h3>Xác thực hai bước (2FA)</h3><span class="badge" ng-class="{'green':bm.trangThai2FA === true}">{{bm.trangThai2FA === true ? 'Đã bật' : (bm.trangThai2FA === false ? 'Chưa bật' : 'Chưa xác định')}}</span></div>
+        <p class="notice">Dùng mã OTP từ ứng dụng xác thực để bổ sung một bước khi đăng nhập. Việc tạo mã khôi phục vẫn dùng được khi bạn không bật 2FA.</p>
+        <div ng-if="bm.trangThai2FA === null"><p class="muted">{{bm.dangQR ? 'Đang kiểm tra trạng thái…' : 'Chưa đọc được trạng thái 2FA.'}}</p><button class="button" ng-click="bm.kiemTra2FA()" ng-disabled="bm.dangQR">Kiểm tra lại</button></div>
+        <div ng-if="bm.trangThai2FA === false"><div class="warning">2FA có hiệu lực ngay sau khi bấm bật. Hãy chuẩn bị ứng dụng xác thực và lưu bộ mã khôi phục trước.</div><label class="checkbox"><input type="checkbox" ng-model="bm.dongYBat"><span>Tôi đã chuẩn bị ứng dụng xác thực và sẽ thêm khóa ngay sau khi bật.</span></label><div class="card-actions"><button class="button button-primary" ng-click="bm.bat2FA()" ng-disabled="!bm.dongYBat || bm.dang2FA">{{bm.dang2FA ? 'Đang bật…' : 'Bật xác thực 2FA'}}</button></div></div>
+        <div ng-if="bm.trangThai2FA === true">
+            <p class="notice green" ng-if="bm.daXacNhan">Ứng dụng xác thực đã được kiểm tra bằng OTP hợp lệ.</p><button class="button" ng-click="bm.hienQR = !bm.hienQR">{{bm.hienQR ? 'Ẩn' : 'Hiện'}} mã QR thiết lập</button>
+            <div ng-if="bm.hienQR"><p class="warning">Quét QR bằng ứng dụng xác thực của bạn. Không chia sẻ QR hoặc khóa bí mật.</p><img class="qr-image" ng-if="bm.qr" ng-src="{{bm.qr}}" alt="Mã QR thiết lập 2FA cho tài khoản"><button class="button button-small" ng-if="!bm.qr" ng-click="bm.kiemTra2FA()" ng-disabled="bm.dangQR">Tải lại QR</button>
+                <div ng-if="bm.maBiMat"><span class="field-label">Khóa để thêm thủ công</span><p class="secret">{{bm.maBiMat}}</p></div>
+                <form name="otpForm" class="inline-form" ng-submit="bm.xacNhan2FA(otpForm)" novalidate><label><span>Kiểm tra OTP từ ứng dụng</span><input type="text" ng-model="bm.otp2FA" required ng-pattern="/^[0-9]{6}$/" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></label><button class="button button-primary" ng-disabled="otpForm.$invalid || bm.dang2FA">Xác nhận OTP</button></form>
+            </div>
+            <div class="form-divider"></div><label class="checkbox"><input type="checkbox" ng-model="bm.dongYTat"><span>Tôi muốn tắt 2FA; lần đăng nhập sau chỉ yêu cầu mật khẩu.</span></label><div class="card-actions"><button class="button button-danger" ng-click="bm.tat2FA()" ng-disabled="!bm.dongYTat || bm.dang2FA">Tắt xác thực 2FA</button></div>
+        </div>
+    </section>
+</div>

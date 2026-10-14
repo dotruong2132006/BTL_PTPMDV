@@ -32,6 +32,34 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
             nguoiDung.MatKhau = matKhauService.BamMatKhau(nguoiDung.MatKhau);
             return await nguoiDungRepository.ThemNguoiDung(nguoiDung);
         }
+
+        public async Task<int> DangKyNguoiDung(NguoiDung nguoiDung)
+        {
+            nguoiDung.TenDangNhap = nguoiDung.TenDangNhap.Trim();
+            nguoiDung.Email = nguoiDung.Email.Trim();
+            nguoiDung.HoTen = nguoiDung.HoTen.Trim();
+            nguoiDung.SoDienThoai = nguoiDung.SoDienThoai.Trim();
+
+            if (string.IsNullOrWhiteSpace(nguoiDung.TenDangNhap))
+                throw new ArgumentException("Tên đăng nhập không được để trống");
+            if (string.IsNullOrWhiteSpace(nguoiDung.Email))
+                throw new ArgumentException("Email không được để trống");
+            if (string.IsNullOrWhiteSpace(nguoiDung.MatKhau))
+                throw new ArgumentException("Mật khẩu không được để trống");
+            if (string.IsNullOrWhiteSpace(nguoiDung.HoTen))
+                throw new ArgumentException("Họ tên không được để trống");
+
+            bool trungTenDangNhap = await nguoiDungRepository.KiemTraTenDangNhapTonTai(nguoiDung.TenDangNhap);
+            if (trungTenDangNhap)
+                throw new InvalidOperationException("Tên đăng nhập hoặc email đã được sử dụng");
+
+            bool trungEmail = await nguoiDungRepository.KiemTraEmailTonTai(nguoiDung.Email);
+            if (trungEmail)
+                throw new InvalidOperationException("Tên đăng nhập hoặc email đã được sử dụng");
+
+            nguoiDung.MatKhau = matKhauService.BamMatKhau(nguoiDung.MatKhau);
+            return await nguoiDungRepository.DangKyNguoiDung(nguoiDung);
+        }
         public async Task<int> CapNhatNguoiDung(NguoiDung nguoiDung)
         {
             bool trungEmail =await nguoiDungRepository.KiemTraEmailTrungKhiCapNhat(nguoiDung.Email, nguoiDung.MaNguoiDung);
@@ -60,6 +88,10 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         public async Task<NguoiDung?> LayTheoTenDangNhap(string tenDangNhap)
         {
             return await nguoiDungRepository.LayTheoTenDangNhap(tenDangNhap);
+        }
+        public async Task<NguoiDung?> LayTheoEmail(string email)
+        {
+            return await nguoiDungRepository.LayTheoEmail(email.Trim());
         }
         public async Task<string?> LayVaiTro(int maNguoiDung)
         {

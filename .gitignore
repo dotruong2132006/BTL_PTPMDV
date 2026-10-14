@@ -1,0 +1,56 @@
+# Visual Studio, IDE caches and local preferences
+.vs/
+.idea/
+.vscode/
+*.user
+# The API.User project name must not be mistaken for an IDE preference file.
+!QuanLyNganQuyCaNhan.API.User/
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Generated .NET output and temporary builds
+bin/
+obj/
+.codex-build/
+TestResults/
+coverage/
+artifacts/
+*.log
+
+# Local configuration and credentials; publish examples only
+appsettings*.json
+!appsettings.example.json
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+secrets.json
+*.pfx
+*.p12
+*.pem
+*.key
+*.http
+
+# Private database backups and exported personal data
+database/backups/
+*.bak
+*.mdf
+*.ldf
+*.db
+*.db-shm
+*.db-wal
+exports/
+uploads/
+*.csv
+*.xlsx
+*.xls
+*.pdf
+
+# OS temporary files
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp

@@ -1,0 +1,143 @@
+{
+  "Routes": [
+    {
+      "Key": "DangNhap",
+      "UpstreamPathTemplate": "/api/DangNhap/{duongDan}",
+      "DownstreamPathTemplate": "/api/DangNhap/{duongDan}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7084 } ]
+    },
+    {
+      "Key": "HaiFa",
+      "UpstreamPathTemplate": "/api/HaiFa/{duongDan}",
+      "DownstreamPathTemplate": "/api/HaiFa/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7084 } ]
+    },
+    {
+      "Key": "QuenMatKhau",
+      "UpstreamPathTemplate": "/api/QuenMatKhau/{duongDan}",
+      "DownstreamPathTemplate": "/api/QuenMatKhau/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7084 } ]
+    },
+    {
+      "Key": "DangKy",
+      "UpstreamPathTemplate": "/api/DangKy/{duongDan}",
+      "DownstreamPathTemplate": "/api/DangKy/{duongDan}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "Vi",
+      "UpstreamPathTemplate": "/api/Vi/{duongDan}",
+      "DownstreamPathTemplate": "/api/Vi/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "DanhMuc",
+      "UpstreamPathTemplate": "/api/DanhMuc/{duongDan}",
+      "DownstreamPathTemplate": "/api/DanhMuc/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "GiaoDich",
+      "UpstreamPathTemplate": "/api/GiaoDich/{duongDan}",
+      "DownstreamPathTemplate": "/api/GiaoDich/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "NganSach",
+      "UpstreamPathTemplate": "/api/NganSach/{duongDan}",
+      "DownstreamPathTemplate": "/api/NganSach/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "NhacNho",
+      "UpstreamPathTemplate": "/api/NhacNho/{duongDan}",
+      "DownstreamPathTemplate": "/api/NhacNho/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "ThongBaoNhacNho",
+      "UpstreamPathTemplate": "/api/ThongBaoNhacNho/{duongDan}",
+      "DownstreamPathTemplate": "/api/ThongBaoNhacNho/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "ThongKe",
+      "UpstreamPathTemplate": "/api/ThongKe/{duongDan}",
+      "DownstreamPathTemplate": "/api/ThongKe/{duongDan}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "BaoCaoThang",
+      "UpstreamPathTemplate": "/api/BaoCaoThang/{duongDan}",
+      "DownstreamPathTemplate": "/api/BaoCaoThang/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7182 } ]
+    },
+    {
+      "Key": "NguoiDung",
+      "UpstreamPathTemplate": "/api/NguoiDung/{duongDan}",
+      "DownstreamPathTemplate": "/api/NguoiDung/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7183 } ]
+    },
+    {
+      "Key": "DanhMucHeThong",
+      "UpstreamPathTemplate": "/api/DanhMucHeThong/{duongDan}",
+      "DownstreamPathTemplate": "/api/DanhMucHeThong/{duongDan}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7183 } ]
+    },
+    {
+      "Key": "NhatKyAudit",
+      "UpstreamPathTemplate": "/api/NhatKyAudit/{duongDan}",
+      "DownstreamPathTemplate": "/api/NhatKyAudit/{duongDan}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7183 } ]
+    },
+    {
+      "Key": "Health",
+      "UpstreamPathTemplate": "/api/Health/{duongDan}",
+      "DownstreamPathTemplate": "/api/Health/{duongDan}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 7183 } ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7240",
+    "Timeout": 60,
+    "UpstreamHeaderTransform": {
+      "X-Forwarded-For": "{RemoteIpAddress}"
+    },
+    "HttpHandlerOptions": {
+      "AllowAutoRedirect": false,
+      "UseCookieContainer": false
+    }
+  }
+}

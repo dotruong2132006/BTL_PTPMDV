@@ -16,6 +16,6 @@ namespace QuanLyNganQuyCaNhan.BLL.Interfaces
         Task<bool> KiemTraNguoiDungTonTai(int maNguoiDung);
         Task<int> CapNhatVi(Vi vi);
         Task<bool> KiemTraTenViTrungKhiCapNhat(int maNguoiDung, string tenVi, int maVi);
-        Task<int> XoaMemVi(int maVi);
+        Task<int> XoaMemVi(int maVi, int maNguoiDung);
     }
 }

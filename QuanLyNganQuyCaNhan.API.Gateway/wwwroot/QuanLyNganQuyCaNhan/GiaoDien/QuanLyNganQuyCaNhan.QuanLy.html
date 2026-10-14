@@ -1,0 +1,132 @@
+<div class="page-heading">
+    <div><span class="eyebrow">NGÂN QUỸ CÁ NHÂN</span><h1>{{ql.cauHinh.tieuDe}}</h1><p>{{ql.cauHinh.moTa}}</p></div>
+    <div class="actions"><button class="button" ng-click="ql.tai()" ng-disabled="ql.dangTai || ql.dangLuu">↻ Tải lại</button><button class="button button-primary" ng-if="!ql.cauHinh.chiDoc" ng-click="ql.mo()" ng-disabled="ql.dangTai || ql.loiLuaChon">＋ Thêm {{ql.cauHinh.ten}}</button></div>
+</div>
+<div class="loading-strip" ng-if="ql.dangTai" role="status" aria-label="Đang tải dữ liệu"></div>
+<div class="error-box" ng-if="ql.loi" role="alert">{{ql.loi}}</div>
+
+<!-- Bộ lọc gửi đúng các tham số mà từng API hỗ trợ. -->
+<form class="panel filters" ng-if="ql.trang !== 'bao-cao' && ql.trang !== 'suc-khoe'" name="locForm" ng-submit="ql.apDung(locForm)" novalidate>
+    <label class="search-field" ng-if="ql.trang !== 'nhat-ky'"><span>{{ql.cauHinh.phanTrang ? 'Tìm trong trang đang xem' : 'Tìm trong danh sách'}}</span><input type="search" ng-model="ql.timKiem" placeholder="Nhập tên, nội dung hoặc mã…" aria-label="Tìm trong dữ liệu đã tải"></label>
+    <label ng-if="ql.trang === 'giao-dich' || ql.trang === 'nhat-ky'"><span>Từ ngày</span><input type="date" ng-model="ql.loc.tuNgay" min="1753-01-01" max="9998-12-31"></label>
+    <label ng-if="ql.trang === 'giao-dich' || ql.trang === 'nhat-ky'"><span>Đến ngày (bao gồm)</span><input type="date" ng-model="ql.loc.denNgay" min="1753-01-01" max="9998-12-31"></label>
+    <label ng-if="ql.trang === 'giao-dich'"><span>Danh mục</span><select ng-model="ql.loc.maDanhMuc" ng-options="d.maDanhMuc as d.tenDanhMuc for d in ql.danhMuc"><option value="">Tất cả</option></select></label>
+    <label ng-if="ql.trang === 'giao-dich'"><span>Sắp xếp</span><select ng-model="ql.loc.sapXepTheo"><option value="NgayGiaoDich">Thời điểm</option><option value="SoTien">Số tiền</option><option value="TenDanhMuc">Danh mục</option><option value="TenVi">Ví tiền</option><option value="MaGiaoDich">Mã giao dịch</option></select></label>
+    <label ng-if="ql.trang === 'giao-dich'"><span>Thứ tự</span><select ng-model="ql.loc.chieuSapXep"><option value="DESC">Giảm dần</option><option value="ASC">Tăng dần</option></select></label>
+    <label ng-if="ql.trang === 'ngan-sach'"><span>Tháng</span><input type="number" ng-model="ql.loc.thang" min="1" max="12" step="1" placeholder="Tất cả"></label>
+    <label ng-if="ql.trang === 'ngan-sach'"><span>Năm</span><input type="number" ng-model="ql.loc.nam" min="2000" max="9998" step="1" placeholder="Tất cả"></label>
+    <label ng-if="ql.trang === 'nhac-nho'"><span>Trạng thái</span><select ng-model="ql.loc.trangThai" ng-options="o.ma as o.ten for o in ql.trangThaiLuaChon"><option value="">Tất cả</option></select></label>
+    <label ng-if="ql.trang === 'nhat-ky'"><span>Mã người dùng</span><input type="number" ng-model="ql.loc.maNguoiDung" min="1" step="1"></label>
+    <label ng-if="ql.trang === 'nhat-ky'"><span>Bảng</span><input type="text" ng-model="ql.loc.tenBang" maxlength="100" placeholder="Ví dụ: GiaoDich"></label>
+    <label ng-if="ql.trang === 'nhat-ky'"><span>Hành động</span><input type="text" ng-model="ql.loc.hanhDong" maxlength="50" placeholder="Ví dụ: INSERT"></label>
+    <label ng-if="ql.trang === 'nhat-ky'"><span>Mã bản ghi</span><input type="text" ng-model="ql.loc.maBanGhi" maxlength="50"></label>
+    <button type="submit" class="button button-primary" ng-disabled="ql.dangTai || locForm.$invalid">Áp dụng</button><button type="button" class="button" ng-click="ql.boLoc()">Xóa bộ lọc</button>
+</form>
+
+<div class="cards-grid" ng-if="ql.trang === 'vi'">
+    <article class="panel wallet-card" ng-repeat="v in ql.danhSach | filter:ql.timKiem track by v.maVi">
+        <div class="panel-heading"><span class="stat-icon"><svg class="icon"><use href="#wallet"></use></svg></span><span class="badge" ng-class="{'green':v.trangThai}">{{v.trangThai ? 'Đang hoạt động' : 'Ngừng sử dụng'}}</span></div>
+        <small class="muted">VÍ #{{v.maVi}}</small><h3>{{v.tenVi}}</h3><strong class="stat-value" ng-class="{'coral':v.soDu < 0}">{{v.soDu | tienViet}}</strong>
+        <p class="description">Số dư cập nhật từ các giao dịch thu chi.</p><div class="actions"><button class="button button-small" ng-click="ql.mo(v)" ng-disabled="ql.dangTai">Chỉnh sửa</button><button class="button button-small button-danger" ng-click="ql.hoiXoa(v)" ng-disabled="ql.dangTai">Xóa ví</button></div>
+    </article>
+</div>
+<div class="cards-grid" ng-if="ql.trang === 'ngan-sach'">
+    <article class="panel" ng-repeat="n in ql.danhSach | filter:ql.timKiem track by n.maNganSach">
+        <div class="panel-heading"><span class="stat-icon expense"><svg class="icon"><use href="#target"></use></svg></span><span class="badge" ng-class="{'coral':n.daVuotNganSach,'amber':n.daChamNguong && !n.daVuotNganSach,'green':!n.daChamNguong}">{{n.daVuotNganSach ? 'Vượt ngân sách' : (n.daChamNguong ? 'Đến ngưỡng cảnh báo' : 'Trong ngân sách')}}</span></div>
+        <h3>{{n.tenDanhMuc}}</h3><p class="description">Tháng {{n.thang}}/{{n.nam}} · #{{n.maNganSach}}</p>
+        <div class="budget-line"><strong>{{n.tongChi | tienViet}}</strong><span>{{n.phanTramDaSuDung | number:1}}%</span></div>
+        <div class="progress"><span ng-style="{'width': (n.phanTramDaSuDung > 100 ? 100 : n.phanTramDaSuDung) + '%'}" ng-class="{'over':n.daVuotNganSach,'near':n.daChamNguong && !n.daVuotNganSach}"></span></div>
+        <p class="budget-amount">Giới hạn {{n.soTienGioiHan | tienViet}} · Cảnh báo ở {{n.phanTramCanhBao}}%</p><p class="description">Còn lại: <strong ng-class="{'coral':n.soTienConLai < 0}">{{n.soTienConLai | tienViet}}</strong></p>
+        <div class="card-actions"><button class="button button-small" ng-click="ql.mo(n)" ng-disabled="ql.dangTai">Chỉnh sửa</button><button class="button button-small button-danger" ng-click="ql.hoiXoa(n)" ng-disabled="ql.dangTai">Xóa</button></div>
+    </article>
+</div>
+<div class="cards-grid" ng-if="ql.trang === 'nhac-nho'">
+    <article class="panel" ng-repeat="n in ql.danhSach | filter:ql.timKiem track by n.maNhacNho">
+        <div class="panel-heading"><span class="stat-icon"><svg class="icon"><use href="#bell"></use></svg></span><span class="badge" ng-class="{'green':n.trangThai}">{{n.trangThai ? 'Đang bật' : 'Đang tắt'}}</span></div>
+        <h3>{{n.tieuDe}}</h3><p class="description">{{n.noiDung || 'Không có nội dung bổ sung.'}}</p>
+        <p class="muted"><small>Lịch đặt: {{n.ngayNhac | date:'dd/MM/yyyy HH:mm'}}<br>Chu kỳ: {{n.lapLai ? (n.kieuLapLai | trangThaiViet) : 'Một lần'}}<br>Lần tiếp theo: {{n.ngayNhacTiepTheo ? (n.ngayNhacTiepTheo | date:'dd/MM/yyyy HH:mm') : 'Không còn lịch tiếp theo'}}</small></p>
+        <div class="card-actions"><button class="button button-small" ng-click="ql.mo(n)" ng-disabled="ql.dangTai">Chỉnh sửa</button><button class="button button-small button-danger" ng-click="ql.hoiXoa(n)" ng-disabled="ql.dangTai">Xóa</button></div>
+    </article>
+</div>
+
+<section class="panel reminder-history" ng-if="ql.trang === 'nhac-nho'">
+    <div class="panel-heading"><h3>Lịch sử thông báo nhắc nhở</h3><button class="button button-small" ng-click="ql.taiThongBao()" ng-disabled="ql.dangTaiThongBao">Cập nhật</button></div><div class="error-box" ng-if="ql.loiThongBao" role="alert">{{ql.loiThongBao}}</div>
+    <div class="table-wrap"><table><thead><tr><th>Thời gian</th><th>Thông báo</th><th>Trạng thái</th><th class="text-right">Thao tác</th></tr></thead><tbody><tr ng-repeat="tb in ql.thongBao track by tb.maThongBao"><td>{{tb.ngayTao | date:'dd/MM/yyyy HH:mm'}}</td><td class="wrap-cell"><strong>{{tb.tieuDe}}</strong><br>{{tb.noiDung}}</td><td><span class="badge" ng-class="{'green':tb.daDoc}">{{tb.daDoc ? 'Đã đọc' : 'Chưa đọc'}}</span></td><td class="text-right"><button class="button button-small" ng-if="!tb.daDoc" ng-click="ql.docThongBao(tb)" ng-disabled="ql.dangDoc">Đánh dấu đã đọc</button></td></tr></tbody></table></div>
+    <p class="empty" ng-if="!ql.thongBao.length && !ql.dangTaiThongBao">Chưa có thông báo nhắc nhở.</p><div class="pagination"><span>Trang {{ql.trangThongBao}} · {{ql.tongThongBao || 0}} thông báo</span><div class="actions"><button class="button button-small" ng-click="ql.doiTrangThongBao(-1)" ng-disabled="ql.trangThongBao <= 1 || ql.dangTaiThongBao">← Trước</button><button class="button button-small" ng-click="ql.doiTrangThongBao(1)" ng-disabled="ql.trangThongBao * 10 >= ql.tongThongBao || ql.dangTaiThongBao">Sau →</button></div></div>
+</section>
+
+<section class="panel" ng-if="ql.cauHinh.cot">
+    <div class="panel-heading"><h3>{{ql.trang === 'giao-dich' ? 'Giao dịch của bạn' : 'Danh sách'}}</h3><small class="muted">{{ql.tong || 0}} bản ghi{{ql.timKiem ? ' · đang lọc nội dung đã tải' : ''}}</small></div>
+    <div class="table-wrap"><table><thead><tr><th ng-repeat="c in ql.cauHinh.cot" ng-class="{'text-right':c.kieu === 'tien'}">{{c.ten}}</th><th ng-if="ql.trang === 'danh-muc'">Phạm vi</th><th class="text-right">Thao tác</th></tr></thead><tbody>
+        <tr ng-repeat="d in ql.danhSach | filter:ql.timKiem track by d[ql.cauHinh.id]">
+            <td ng-repeat="c in ql.cauHinh.cot" ng-switch="c.kieu" ng-class="{'text-right':c.kieu === 'tien','wrap-cell':c.ma === 'noiDung' || c.ma === 'moTa'}">
+                <span ng-switch-when="tien" class="amount" ng-class="{'green':d.loaiGiaoDich === 'THU','coral':d.loaiGiaoDich === 'CHI'}">{{d.loaiGiaoDich === 'THU' ? '+' : '−'}} {{d[c.ma] | tienViet}}</span>
+                <span ng-switch-when="ngay">{{d[c.ma] | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                <span ng-switch-when="loai" class="badge" ng-class="{'green':d[c.ma] === 'THU','coral':d[c.ma] === 'CHI'}">{{d[c.ma] === 'THU' ? 'Thu nhập' : 'Chi tiêu'}}</span>
+                <span ng-switch-when="bool" class="badge" ng-class="{'green':d[c.ma]}">{{d[c.ma] ? 'Có' : 'Không'}}</span><span ng-switch-default>{{d[c.ma] == null || d[c.ma] === '' ? '—' : d[c.ma]}}</span>
+            </td>
+            <td ng-if="ql.trang === 'danh-muc'"><span class="badge">{{ql.chiDoc(d) ? 'Hệ thống' : 'Cá nhân'}}</span></td>
+            <td class="text-right"><button class="button button-small" ng-if="ql.trang === 'nhat-ky'" ng-click="ql.xemAudit(d)" ng-disabled="ql.dangLuu">Chi tiết</button><span class="muted" ng-if="ql.trang === 'danh-muc' && ql.chiDoc(d)">Dùng chung</span>
+                <span ng-if="!ql.chiDoc(d)"><button class="button button-small" ng-click="ql.mo(d)" ng-disabled="ql.dangTai || ql.dangLuu">Sửa</button> <button class="button button-small button-danger" ng-click="ql.hoiXoa(d)" ng-disabled="ql.dangTai || ql.dangLuu">Xóa</button></span>
+            </td>
+        </tr>
+    </tbody></table></div>
+</section>
+
+<div ng-if="ql.trang === 'bao-cao'">
+    <div class="split-panel">
+        <section class="panel"><div class="panel-heading"><h3>Báo cáo tài chính PDF</h3><span class="badge">Theo tháng</span></div><p class="report-info">Tổng thu chi, thống kê danh mục và danh sách giao dịch trong tháng. Báo cáo được tạo ở nền; bạn có thể tải khi trạng thái là Hoàn thành.</p>
+            <form class="inline-form" name="pdfForm" ng-submit="ql.taoPDF(pdfForm)" novalidate><label><span>Tháng</span><input type="number" ng-model="ql.baoCao.thang" min="1" max="12" step="1" required></label><label><span>Năm</span><input type="number" ng-model="ql.baoCao.nam" min="2000" max="9998" step="1" required></label><button class="button button-primary" ng-disabled="ql.dangPDF || pdfForm.$invalid">{{ql.dangPDF ? 'Đang gửi…' : 'Tạo báo cáo'}}</button></form>
+        </section>
+        <section class="panel"><div class="panel-heading"><h3>Nhập giao dịch</h3><span class="badge">CSV / Excel</span></div><p class="notice">Dùng đúng file mẫu. Tối đa 1.000 dòng và 5 MB. Mã ví, mã danh mục phải thuộc dữ liệu bạn được sử dụng. Nếu có dòng sai, toàn bộ lần nhập được hủy.</p>
+            <label><span>File cần nhập</span><input type="file" accept=".csv,.xlsx" chon-file-ngan-quy="ql.chonFile(file)" ng-disabled="ql.dangNhapFile"></label><div class="error-box" ng-if="ql.loiNhap" role="alert">{{ql.loiNhap}}</div>
+            <p class="notice" ng-if="ql.ketQuaNhap">{{ql.ketQuaNhap.thongBao}} · {{ql.ketQuaNhap.soDong}} dòng.<br>{{ql.ketQuaNhap.nhacNho}}</p><div class="card-actions"><small class="muted">Không nhập lại giao dịch đã có.</small><button class="button button-primary" ng-click="ql.nhapFile()" ng-disabled="!ql.fileNhap || ql.dangNhapFile">{{ql.dangNhapFile ? 'Đang nhập…' : 'Nhập file'}}</button></div>
+        </section>
+    </div>
+    <section class="panel export-panel"><div class="panel-heading"><h3>Xuất dữ liệu giao dịch</h3><small class="muted">Chỉ dữ liệu của tài khoản đang đăng nhập</small></div>
+        <form class="filters" name="xuatForm" ng-submit="ql.xuatFile(false,xuatForm)" novalidate>
+            <label><span>Định dạng</span><select ng-model="ql.xuat.dinhDang"><option value="xlsx">Excel (.xlsx)</option><option value="csv">CSV (.csv)</option></select></label>
+            <label><span>Từ ngày</span><input type="date" ng-model="ql.xuat.tuNgay" min="1753-01-01" max="9998-12-31"></label><label><span>Đến ngày (bao gồm)</span><input type="date" ng-model="ql.xuat.denNgay" min="1753-01-01" max="9998-12-31"></label>
+            <label><span>Ví tiền</span><select ng-model="ql.xuat.maVi" ng-options="v.maVi as (v.tenVi + ' (#' + v.maVi + ')') for v in ql.vi"><option value="">Tất cả ví</option></select></label>
+            <label><span>Danh mục</span><select ng-model="ql.xuat.maDanhMuc" ng-options="d.maDanhMuc as (d.tenDanhMuc + ' (#' + d.maDanhMuc + ')') for d in ql.danhMuc"><option value="">Tất cả danh mục</option></select></label>
+            <button class="button button-primary" ng-disabled="ql.dangFile || xuatForm.$invalid">Xuất dữ liệu</button><button class="button" type="button" ng-click="ql.xuatFile(true)" ng-disabled="ql.dangFile">Tải file mẫu</button>
+        </form>
+    </section>
+    <section class="panel"><div class="panel-heading"><h3>Báo cáo đã yêu cầu</h3><small class="muted">Tự cập nhật khi đang tạo · {{ql.tong || 0}} báo cáo</small></div><div class="table-wrap"><table><thead><tr><th>Báo cáo</th><th>Ngày tạo</th><th>Trạng thái</th><th>Ghi chú</th><th class="text-right">Tải file</th></tr></thead><tbody><tr ng-repeat="b in ql.danhSach track by b.maBaoCao"><td><strong>Tháng {{b.thang}}/{{b.nam}}</strong><br><small class="muted">#{{b.maBaoCao}}</small></td><td>{{b.ngayTao | date:'dd/MM/yyyy HH:mm'}}</td><td><span class="badge" ng-class="{'green':b.trangThai === 'HOAN_THANH','coral':b.trangThai === 'LOI'}">{{b.trangThai | trangThaiViet}}</span></td><td class="wrap-cell">{{b.loiCuoi || (b.kichThuocFile ? (b.kichThuocFile / 1024 | number:1) + ' KB' : 'Đang chờ xử lý')}}</td><td class="text-right"><button class="button button-small" ng-click="ql.taiPDF(b)" ng-disabled="b.trangThai !== 'HOAN_THANH' || ql.dangFile">↓ PDF</button></td></tr></tbody></table></div></section>
+</div>
+
+<section class="panel" ng-if="ql.trang === 'suc-khoe' && ql.sucKhoe">
+    <div class="status-card"><span class="status-dot" ng-class="{'error':ql.sucKhoe.trangThai !== 'Healthy'}"></span><div><h3>{{ql.sucKhoe.trangThai === 'Healthy' ? 'Hệ thống đang hoạt động' : 'Hệ thống cần kiểm tra'}}</h3><small class="muted">Trạng thái trả về từ máy chủ: {{ql.sucKhoe.trangThai}}</small></div></div>
+    <div class="health-detail" ng-repeat="s in ql.sucKhoe.thanhPhan"><div><strong>{{s.ten}}</strong><p class="description">{{s.moTa}}</p></div><span class="badge" ng-class="{'green':s.trangThai === 'Healthy','coral':s.trangThai !== 'Healthy'}">{{s.trangThai}}</span></div>
+</section>
+<div class="empty panel" ng-if="ql.trang !== 'suc-khoe' && !ql.dangTai && !ql.loi && !(ql.danhSach | filter:ql.timKiem).length"><svg class="icon"><use href="#grid"></use></svg><h3>Chưa có dữ liệu để hiển thị</h3><p>{{ql.timKiem ? 'Thử từ khóa khác hoặc xóa bộ lọc.' : 'Thêm dữ liệu đầu tiên hoặc thay đổi bộ lọc.'}}</p></div>
+<div class="pagination" ng-if="ql.cauHinh.phanTrang"><span>Trang {{ql.trangSo}} · {{ql.tong || 0}} bản ghi</span><div class="actions"><button class="button button-small" ng-click="ql.doiTrang(-1)" ng-disabled="ql.trangSo <= 1 || ql.dangTai">← Trước</button><button class="button button-small" ng-click="ql.doiTrang(1)" ng-disabled="ql.trangSo * ql.kichThuoc >= ql.tong || ql.dangTai">Sau →</button></div></div>
+
+<div class="modal-backdrop" ng-if="ql.moSua || ql.canXoa || ql.chiTiet">
+    <section class="modal management-modal" role="dialog" aria-modal="true" aria-labelledby="quan-ly-modal-title">
+        <div class="modal-header"><div><h2 id="quan-ly-modal-title">{{ql.canXoa ? 'Xác nhận xóa' : (ql.chiTiet ? 'Chi tiết nhật ký' : (ql.sua ? 'Chỉnh sửa ' : 'Thêm ') + ql.cauHinh.ten)}}</h2><p ng-if="ql.moSua">{{ql.sua ? 'Cập nhật thông tin của bản ghi đang chọn.' : 'Điền thông tin để tạo bản ghi mới.'}}</p></div><button class="icon-button" ng-click="ql.dong()" ng-disabled="ql.dangLuu" aria-label="Đóng">✕</button></div>
+        <div class="error-box" ng-if="ql.loiModal" role="alert">{{ql.loiModal}}</div>
+        <div class="warning" ng-if="ql.xungDot">Bản ghi đã thay đổi. Tải phiên bản mới sẽ thay thế nội dung bạn đang nhập.<br><button class="button button-small" ng-click="ql.taiLaiBanSua()" ng-disabled="ql.dangLuu">Tải phiên bản mới</button></div>
+        <form name="suaForm" ng-if="ql.moSua" ng-submit="ql.luu(suaForm)" novalidate>
+            <div class="modal-grid"><label ng-repeat="f in ql.cauHinh.truong" ng-if="ql.hienTruong(f)" ng-class="{'full':f.rong,'checkbox':f.kieu === 'checkbox'}" ng-switch="f.kieu">
+                <span ng-if="f.kieu !== 'checkbox'">{{f.ten}}{{f.batBuoc ? ' *' : ''}}</span>
+                <select ng-switch-when="select" name="{{f.ma}}" ng-model="ql.duLieu[f.ma]" ng-options="o.ma as o.ten for o in ql.luaChon(f)" ng-required="f.batBuoc" ng-change="ql.doiLoai(f)" ng-disabled="ql.dangLuu"><option value="">Chọn {{f.ten | lowercase}}</option></select>
+                <textarea ng-switch-when="textarea" name="{{f.ma}}" ng-model="ql.duLieu[f.ma]" maxlength="{{f.dai}}" ng-required="f.batBuoc" rows="3" ng-disabled="ql.dangLuu"></textarea>
+                <input ng-switch-when="number" name="{{f.ma}}" type="number" ng-model="ql.duLieu[f.ma]" min="{{f.min}}" max="{{f.max}}" step="{{f.buoc || 1}}" ng-required="f.batBuoc" ng-disabled="ql.dangLuu">
+                <input ng-switch-when="tien" name="{{f.ma}}" type="text" inputmode="decimal" ng-model="ql.duLieu[f.ma]" ng-pattern="ql.mauTien" maxlength="19" ng-required="f.batBuoc" placeholder="Ví dụ: 150000 hoặc 150000.50" ng-disabled="ql.dangLuu">
+                <input ng-switch-when="datetime-local" name="{{f.ma}}" type="datetime-local" step="1" ng-model="ql.duLieu[f.ma]" ng-required="f.batBuoc" ng-disabled="ql.dangLuu">
+                <input ng-switch-when="checkbox" type="checkbox" ng-model="ql.duLieu[f.ma]" ng-disabled="ql.dangLuu"><span ng-if="f.kieu === 'checkbox'">{{f.ten}}</span>
+                <input ng-switch-when="email" name="{{f.ma}}" type="email" ng-model="ql.duLieu[f.ma]" ng-required="f.batBuoc" maxlength="{{f.dai}}" ng-disabled="ql.dangLuu" autocomplete="email">
+                <input ng-switch-when="password" name="{{f.ma}}" type="password" ng-model="ql.duLieu[f.ma]" ng-required="f.batBuoc" ng-minlength="f.minDai" maxlength="{{f.dai}}" ng-disabled="ql.dangLuu" autocomplete="new-password">
+                <input ng-switch-default name="{{f.ma}}" type="text" ng-model="ql.duLieu[f.ma]" ng-required="f.batBuoc" maxlength="{{f.dai}}" ng-disabled="ql.dangLuu" autocomplete="off">
+                <small class="form-hint" ng-if="f.kieu === 'tien'">Không nhập dấu phân cách hàng nghìn. Dùng dấu chấm cho phần thập phân.</small>
+            </label></div>
+            <p class="notice" ng-if="ql.trang === 'vi'">Số dư ví được tính từ giao dịch; bạn không cần nhập số dư tại đây.</p><p class="notice" ng-if="ql.trang === 'nhac-nho'">Thời gian nhập theo giờ trên thiết bị của bạn. Thông báo được gửi trong ứng dụng.</p>
+            <p class="warning" ng-if="ql.trang === 'nguoi-dung' && ql.sua && !ql.duLieu.trangThai && ql.laTaiKhoanHienTai(ql.duLieu)">Bạn đang khóa tài khoản đang đăng nhập. Sau khi lưu, phiên hiện tại sẽ kết thúc.</p>
+            <p class="form-error" ng-if="suaForm.$submitted && suaForm.$invalid">Kiểm tra các trường bắt buộc, định dạng và giới hạn giá trị.</p>
+            <div class="modal-actions"><button class="button" type="button" ng-click="ql.dong()" ng-disabled="ql.dangLuu">Hủy</button><button class="button" type="button" ng-if="ql.chuaXacDinh" ng-click="ql.dong(); ql.tai()">Đóng & tải lại danh sách</button><button class="button button-primary" ng-disabled="ql.dangLuu || ql.xungDot || ql.chuaXacDinh">{{ql.dangLuu ? 'Đang lưu…' : 'Lưu thông tin'}}</button></div>
+        </form>
+        <div ng-if="ql.canXoa"><p>Bạn muốn xóa <strong>{{ql.tenItem(ql.canXoa)}}</strong>?</p><p class="notice">Bản ghi được xóa mềm. {{ql.trang === 'giao-dich' ? 'Số dư ví sẽ được điều chỉnh theo giao dịch bị xóa.' : 'Lịch sử dữ liệu vẫn được lưu tại máy chủ.'}}</p><p class="warning" ng-if="ql.laTaiKhoanHienTai(ql.canXoa)">Bạn đang xóa tài khoản đang đăng nhập. Phiên hiện tại sẽ kết thúc sau khi xóa.</p><div class="modal-actions"><button class="button" ng-click="ql.dong()" ng-disabled="ql.dangLuu">Hủy</button><button class="button button-danger" ng-click="ql.xoa()" ng-disabled="ql.dangLuu">{{ql.dangLuu ? 'Đang xóa…' : 'Xác nhận xóa'}}</button></div></div>
+        <div ng-if="ql.chiTiet"><p class="muted">{{ql.chiTiet.hanhDong}} · {{ql.chiTiet.tenBang}} · Bản ghi {{ql.chiTiet.maBanGhi}}</p><h3>Dữ liệu trước thay đổi</h3><pre class="json-detail">{{ql.chiTiet.duLieuCu || 'Không có'}}</pre><h3>Dữ liệu sau thay đổi</h3><pre class="json-detail">{{ql.chiTiet.duLieuMoi || 'Không có'}}</pre><div class="modal-actions"><button class="button" ng-click="ql.dong()">Đóng</button></div></div>
+    </section>
+</div>

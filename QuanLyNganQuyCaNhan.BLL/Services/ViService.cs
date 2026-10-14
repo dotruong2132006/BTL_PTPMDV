@@ -50,9 +50,9 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         {
             return await viRepository.KiemTraTenViTrungKhiCapNhat(maNguoiDung,tenVi,maVi);
         }
-        public async Task<int> XoaMemVi(int maVi)
+        public async Task<int> XoaMemVi(int maVi,int maNguoiDung)
         {
-            return await viRepository.XoaMemVi(maVi);
+            return await viRepository.XoaMemVi(maVi,maNguoiDung);
         }
     }
 }

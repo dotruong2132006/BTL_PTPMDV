@@ -16,6 +16,8 @@ namespace QuanLyNganQuyCaNhan.DAL.Models
 
         public decimal SoDu { get; set; }
 
+        public string? MoTa { get; set; }
+
         public bool TrangThai { get; set; }
 
         public DateTime NgayTao { get; set; }

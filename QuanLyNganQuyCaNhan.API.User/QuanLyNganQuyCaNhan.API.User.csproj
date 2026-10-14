@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>QuanLyNganQuyCaNhan.API.User-CanhBaoNganSach</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\QuanLyNganQuyCaNhan.BLL\QuanLyNganQuyCaNhan.BLL.csproj" />
     <ProjectReference Include="..\QuanLyNganQuyCaNhan.DAL\QuanLyNganQuyCaNhan.DAL.csproj" />
+    <ProjectReference Include="..\QuanLyNganQuyCaNhan.API.Shared\QuanLyNganQuyCaNhan.API.Shared.csproj" />
   </ItemGroup>
 
 </Project>

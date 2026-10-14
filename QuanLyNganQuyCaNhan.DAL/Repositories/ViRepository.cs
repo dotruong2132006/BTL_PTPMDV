@@ -86,15 +86,16 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             return soLuong > 0;
         }
 
-        public async Task<int> XoaMemVi(int maVi)
+        public async Task<int> XoaMemVi(int maVi,int maNguoiDung)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"UPDATE Vi
-                               SET NgayXoa = GETDATE()
+                               SET NgayXoa = GETDATE(),TrangThai = 0
                                WHERE MaVi = @MaVi
+                               AND MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,new{MaVi = maVi});
+            return await ketNoi.ExecuteAsync(cauLenh,new{MaVi = maVi,MaNguoiDung = maNguoiDung});
         }
     }
 }

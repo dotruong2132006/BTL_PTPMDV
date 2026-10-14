@@ -40,6 +40,43 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             ";
             return await ketNoi.ExecuteScalarAsync<int>(cauLenh,nguoiDung);
         }
+
+        public async Task<int> DangKyNguoiDung(NguoiDung nguoiDung)
+        {
+            using var ketNoi = ketNoiCSDL.TaoKetNoi();
+            await ketNoi.OpenAsync();
+            using var giaoDich = ketNoi.BeginTransaction();
+
+            try
+            {
+                string cauLenhThemNguoiDung = @"INSERT INTO NguoiDung (TenDangNhap,Email,MatKhau,HoTen,SoDienThoai,DaBat2FA,MaBiMat2FA,TrangThai)
+                    VALUES(@TenDangNhap,@Email,@MatKhau,@HoTen,@SoDienThoai,0,'',1);
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+                int maNguoiDung = await ketNoi.ExecuteScalarAsync<int>(cauLenhThemNguoiDung, nguoiDung, giaoDich);
+
+                string cauLenhGanVaiTro = @"INSERT INTO NguoiDung_VaiTro (MaNguoiDung, MaVaiTro)
+                    SELECT @MaNguoiDung, MaVaiTro
+                    FROM VaiTro
+                    WHERE TenVaiTro = @TenVaiTro;";
+                int soVaiTroDuocGan = await ketNoi.ExecuteAsync(
+                    cauLenhGanVaiTro,
+                    new { MaNguoiDung = maNguoiDung, TenVaiTro = "User" },
+                    giaoDich);
+
+                if (soVaiTroDuocGan != 1)
+                {
+                    throw new InvalidOperationException("Không tìm thấy cấu hình vai trò User trong cơ sở dữ liệu");
+                }
+
+                giaoDich.Commit();
+                return maNguoiDung;
+            }
+            catch
+            {
+                giaoDich.Rollback();
+                throw;
+            }
+        }
         public async Task<bool> KiemTraTenDangNhapTonTai(string tenDangNhap)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
@@ -115,6 +152,16 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                AND NgayXoa IS NULL
             ";
             return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh,new{TenDangNhap = tenDangNhap});
+        }
+        public async Task<NguoiDung?> LayTheoEmail(string email)
+        {
+            using var ketNoi = ketNoiCSDL.TaoKetNoi();
+            string cauLenh = @"SELECT MaNguoiDung, Email
+                               FROM NguoiDung
+                               WHERE Email = @Email
+                               AND TrangThai = 1
+                               AND NgayXoa IS NULL";
+            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh, new { Email = email });
         }
         public async Task<string?> LayVaiTro(int maNguoiDung)
         {

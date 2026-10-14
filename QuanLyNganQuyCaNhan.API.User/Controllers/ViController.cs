@@ -83,12 +83,20 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         [HttpDelete("{maVi}")]
         public async Task<IActionResult> XoaMemVi(int maVi)
         {
-            int soDong = await viService.XoaMemVi(maVi);
-            if (soDong == 0)
+            try
             {
-                return NotFound(new { ThongBao = "Không tìm thấy ví" });
+                int maNguoiDung = LayMaNguoiDungTuToken();
+                int soDong =await viService.XoaMemVi(maVi,maNguoiDung);
+                if (soDong == 0)
+                {
+                    return NotFound(new{ThongBao = "Không tìm thấy ví"});
+                }
+                return Ok(new{MaVi = maVi,ThongBao = "Xóa ví thành công"});
             }
-            return Ok(new { MaVi = maVi, ThongBao = "Xóa ví thành công" });
+            catch (Exception ex)
+            {
+                return BadRequest(new{ThongBao = ex.Message});
+            }
         }
 
     }
