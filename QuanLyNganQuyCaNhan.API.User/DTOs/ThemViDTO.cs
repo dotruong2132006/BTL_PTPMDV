@@ -1,4 +1,4 @@
-﻿namespace QuanLyNganQuyCaNhan.API.User.DTOs
+namespace QuanLyNganQuyCaNhan.API.User.DTOs
 {
     public class ThemViDTO
     {

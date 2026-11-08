@@ -19,7 +19,8 @@ namespace QuanLyNganQuyCaNhan.API.Shared.Extensions
 
             var proxyTinCay = cauHinh.GetSection("ApiGateway:ProxyTinCay").GetChildren()
                 .Select(x => x.Value).ToArray();
-            if (proxyTinCay.Length == 0) proxyTinCay = new[] { "127.0.0.1", "::1" };
+            if (proxyTinCay.Length == 0)
+                proxyTinCay = new[] { "127.0.0.1", "::1" };
 
             foreach (var diaChi in proxyTinCay)
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +11,22 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
     {
         public string TaoMaBiMat()
         {
-            byte[] maBiMat =KeyGeneration.GenerateRandomKey(20);
+            byte[] maBiMat = KeyGeneration.GenerateRandomKey(20);
             return Base32Encoding.ToString(maBiMat);
         }
 
         public string TaoMaOTP(string maBiMat)
         {
-            byte[] duLieu =Base32Encoding.ToBytes(maBiMat);
-            var totp =new Totp(duLieu);
+            byte[] duLieu = Base32Encoding.ToBytes(maBiMat);
+            var totp = new Totp(duLieu);
             return totp.ComputeTotp();
         }
 
-        public bool KiemTraMaOTP(string maBiMat,string maOTP)
+        public bool KiemTraMaOTP(string maBiMat, string maOTP)
         {
-            byte[] duLieu =Base32Encoding.ToBytes(maBiMat);
-            var totp =new Totp(duLieu);
-            return totp.VerifyTotp(maOTP,out long buocThoiGian);
+            byte[] duLieu = Base32Encoding.ToBytes(maBiMat);
+            var totp = new Totp(duLieu);
+            return totp.VerifyTotp(maOTP, out long buocThoiGian);
         }
     }
 }

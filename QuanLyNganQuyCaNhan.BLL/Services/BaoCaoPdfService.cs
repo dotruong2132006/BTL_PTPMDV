@@ -21,7 +21,8 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
             {
                 // Dùng Unicode cho mọi đoạn chữ, tránh ánh xạ WinAnsi làm mất dấu tiếng Việt.
                 GlobalFontSettings.DefaultFontEncoding = PdfFontEncoding.Unicode;
-                if (GlobalFontSettings.FontResolver == null) GlobalFontSettings.FontResolver = new BaoCaoFontResolver();
+                if (GlobalFontSettings.FontResolver == null)
+                    GlobalFontSettings.FontResolver = new BaoCaoFontResolver();
             }
             var taiLieu = new Document();
             taiLieu.Info.Title = $"Báo cáo tài chính tháng {duLieu.Thang:00}/{duLieu.Nam}";
@@ -106,20 +107,23 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
             bang.Format.Font.Size = 8;
             bang.Format.SpaceAfter = Unit.FromPoint(2);
             bang.TopPadding = bang.BottomPadding = Unit.FromPoint(4);
-            foreach (double rong in doRong) bang.AddColumn(Unit.FromCentimeter(rong));
+            foreach (double rong in doRong)
+                bang.AddColumn(Unit.FromCentimeter(rong));
             var dong = bang.AddRow();
             dong.HeadingFormat = true;
             dong.Shading.Color = MauTieuDe;
             dong.Format.Font.Bold = true;
             dong.Format.Font.Color = Colors.White;
-            for (int i = 0; i < tieuDe.Length; i++) dong.Cells[i].AddParagraph(tieuDe[i]);
+            for (int i = 0; i < tieuDe.Length; i++)
+                dong.Cells[i].AddParagraph(tieuDe[i]);
             return bang;
         }
 
         private static void ThemO(Row dong, int cot, string noiDung, bool canPhai = false)
         {
             var doan = dong.Cells[cot].AddParagraph(VanBan(noiDung));
-            if (canPhai) doan.Format.Alignment = ParagraphAlignment.Right;
+            if (canPhai)
+                doan.Format.Alignment = ParagraphAlignment.Right;
         }
 
         private static string Tien(decimal giaTri) => giaTri.ToString("N2", VanHoa);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +38,7 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 VALUES(@TenDangNhap,@Email,@MatKhau,@HoTen,@SoDienThoai,0,'',1);
                 SELECT CAST(SCOPE_IDENTITY() AS INT);
             ";
-            return await ketNoi.ExecuteScalarAsync<int>(cauLenh,nguoiDung);
+            return await ketNoi.ExecuteScalarAsync<int>(cauLenh, nguoiDung);
         }
 
         public async Task<int> DangKyNguoiDung(NguoiDung nguoiDung)
@@ -60,7 +60,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                     WHERE TenVaiTro = @TenVaiTro;";
                 int soVaiTroDuocGan = await ketNoi.ExecuteAsync(
                     cauLenhGanVaiTro,
-                    new { MaNguoiDung = maNguoiDung, TenVaiTro = "User" },
+                    new
+                    {
+                        MaNguoiDung = maNguoiDung,
+                        TenVaiTro = "User"
+                    },
                     giaoDich);
 
                 if (soVaiTroDuocGan != 1)
@@ -84,7 +88,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 WHERE TenDangNhap = @TenDangNhap
                 AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh,new { TenDangNhap = tenDangNhap });
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                TenDangNhap = tenDangNhap
+            });
             return soLuong > 0;
         }
         public async Task<bool> KiemTraEmailTonTai(string email)
@@ -95,7 +102,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 WHERE Email = @Email
                 AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh,new { Email = email });
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                Email = email
+            });
             return soLuong > 0;
         }
         public async Task<int> CapNhatNguoiDung(NguoiDung nguoiDung)
@@ -110,9 +120,9 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,nguoiDung);
+            return await ketNoi.ExecuteAsync(cauLenh, nguoiDung);
         }
-        public async Task<bool> KiemTraEmailTrungKhiCapNhat(string email,int maNguoiDung)
+        public async Task<bool> KiemTraEmailTrungKhiCapNhat(string email, int maNguoiDung)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"SELECT COUNT(1) FROM NguoiDung
@@ -120,7 +130,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                AND MaNguoiDung <> @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>( cauLenh, new{Email = email,MaNguoiDung = maNguoiDung});
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                Email = email,
+                MaNguoiDung = maNguoiDung
+            });
             return soLuong > 0;
         }
         public async Task<int> XoaMemNguoiDung(int maNguoiDung)
@@ -131,7 +145,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,new{MaNguoiDung = maNguoiDung});
+            return await ketNoi.ExecuteAsync(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
         }
         public async Task<bool> KiemTraNguoiDungTonTai(int maNguoiDung)
         {
@@ -140,7 +157,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh,new{MaNguoiDung = maNguoiDung});
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
             return soLuong > 0;
         }
         public async Task<NguoiDung?> LayTheoTenDangNhap(string tenDangNhap)
@@ -151,7 +171,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE TenDangNhap = @TenDangNhap
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh,new{TenDangNhap = tenDangNhap});
+            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh, new
+            {
+                TenDangNhap = tenDangNhap
+            });
         }
         public async Task<NguoiDung?> LayTheoEmail(string email)
         {
@@ -161,7 +184,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE Email = @Email
                                AND TrangThai = 1
                                AND NgayXoa IS NULL";
-            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh, new { Email = email });
+            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh, new
+            {
+                Email = email
+            });
         }
         public async Task<string?> LayVaiTro(int maNguoiDung)
         {
@@ -172,47 +198,64 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                ON ndvt.MaVaiTro = vt.MaVaiTro
                                WHERE ndvt.MaNguoiDung = @MaNguoiDung
             ";
-            return await ketNoi.QueryFirstOrDefaultAsync<string>(cauLenh,new{MaNguoiDung = maNguoiDung});
+            return await ketNoi.QueryFirstOrDefaultAsync<string>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
         }
         public async Task<NguoiDung?> LayTheoMaNguoiDung(int maNguoiDung)
         {
-            using var ketNoi =ketNoiCSDL.TaoKetNoi();
+            using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"SELECT MaNguoiDung,TenDangNhap,Email,MatKhau,HoTen,SoDienThoai,DaBat2FA,MaBiMat2FA,TrangThai,NgayTao,NgayCapNhat,NgayXoa
                                FROM NguoiDung
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh,new{MaNguoiDung = maNguoiDung});
+            return await ketNoi.QueryFirstOrDefaultAsync<NguoiDung>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
         }
-        public async Task<int> Bat2FA(int maNguoiDung,string maBiMat2FA)
+        public async Task<int> Bat2FA(int maNguoiDung, string maBiMat2FA)
         {
-            using var ketNoi =ketNoiCSDL.TaoKetNoi();
+            using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"UPDATE NguoiDung
                                SET DaBat2FA = 1, MaBiMat2FA = @MaBiMat2FA, NgayCapNhat = GETDATE()
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,new{MaNguoiDung = maNguoiDung,MaBiMat2FA = maBiMat2FA});
+            return await ketNoi.ExecuteAsync(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung,
+                MaBiMat2FA = maBiMat2FA
+            });
         }
         public async Task<int> Tat2FA(int maNguoiDung)
         {
-            using var ketNoi =ketNoiCSDL.TaoKetNoi();
+            using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"UPDATE NguoiDung
                                SET DaBat2FA = 0,MaBiMat2FA = NULL,NgayCapNhat = GETDATE()
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,new{MaNguoiDung = maNguoiDung});
+            return await ketNoi.ExecuteAsync(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
         }
-        public async Task<int> CapNhatMatKhau(int maNguoiDung,string matKhauMoi)
+        public async Task<int> CapNhatMatKhau(int maNguoiDung, string matKhauMoi)
         {
-            using var ketNoi =ketNoiCSDL.TaoKetNoi();
+            using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"UPDATE NguoiDung
                                SET MatKhau = @MatKhauMoi,NgayCapNhat = GETDATE()
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,new{MaNguoiDung = maNguoiDung,MatKhauMoi = matKhauMoi});
+            return await ketNoi.ExecuteAsync(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung,
+                MatKhauMoi = matKhauMoi
+            });
         }
     }
 }

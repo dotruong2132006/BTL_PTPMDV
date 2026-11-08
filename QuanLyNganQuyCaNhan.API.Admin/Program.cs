@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
-var khoaBiMat =builder.Configuration["Jwt:Key"];
-var issuer =builder.Configuration["Jwt:Issuer"];
-var audience =builder.Configuration["Jwt:Audience"];
+var khoaBiMat = builder.Configuration["Jwt:Key"];
+var issuer = builder.Configuration["Jwt:Issuer"];
+var audience = builder.Configuration["Jwt:Audience"];
 
 builder.Services.AddCors(options =>
 {
@@ -61,7 +61,7 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 
-var chuoiKetNoi =builder.Configuration.GetConnectionString("KetNoiCSDL");
+var chuoiKetNoi = builder.Configuration.GetConnectionString("KetNoiCSDL");
 
 builder.Services.AddSingleton<DapperConnectionFactory>(new DapperConnectionFactory(chuoiKetNoi!));
 builder.Services.AddHealthChecks().AddCheck<KetNoiCSDLHealthCheck>("database", timeout: TimeSpan.FromSeconds(6));
@@ -90,7 +90,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = issuer,
             ValidAudience = audience,
-            IssuerSigningKey =new SymmetricSecurityKey(Encoding.UTF8.GetBytes(khoaBiMat!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(khoaBiMat!)),
             ClockSkew = TimeSpan.Zero
         };
 });

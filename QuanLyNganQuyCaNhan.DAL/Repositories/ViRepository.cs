@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.QueryAsync<Vi>(cauLenh,new{MaNguoiDung = maNguoiDung});
+            return await ketNoi.QueryAsync<Vi>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
         }
 
         public async Task<int> ThemVi(Vi vi)
@@ -34,10 +37,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                VALUES (@MaNguoiDung,@TenVi,0,1);
                                SELECT CAST(SCOPE_IDENTITY() AS INT);
             ";
-            return await ketNoi.ExecuteScalarAsync<int>(cauLenh,vi);
+            return await ketNoi.ExecuteScalarAsync<int>(cauLenh, vi);
         }
 
-        public async Task<bool> KiemTraTenViTonTai(int maNguoiDung,string tenVi)
+        public async Task<bool> KiemTraTenViTonTai(int maNguoiDung, string tenVi)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"SELECT COUNT(1) FROM Vi
@@ -45,7 +48,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                AND TenVi = @TenVi
                                AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh,new{MaNguoiDung = maNguoiDung,TenVi = tenVi});
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung,
+                TenVi = tenVi
+            });
             return soLuong > 0;
         }
 
@@ -56,7 +63,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                 WHERE MaNguoiDung = @MaNguoiDung
                                 AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh,new{MaNguoiDung = maNguoiDung});
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
             return soLuong > 0;
         }
         public async Task<int> CapNhatVi(Vi vi)
@@ -70,10 +80,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                 AND MaNguoiDung = @MaNguoiDung
                                 AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,vi);
+            return await ketNoi.ExecuteAsync(cauLenh, vi);
         }
 
-        public async Task<bool> KiemTraTenViTrungKhiCapNhat(int maNguoiDung,string tenVi,int maVi)
+        public async Task<bool> KiemTraTenViTrungKhiCapNhat(int maNguoiDung, string tenVi, int maVi)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"SELECT COUNT(1) FROM Vi
@@ -82,11 +92,16 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                AND MaVi <> @MaVi
                                AND NgayXoa IS NULL
             ";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh,new{MaNguoiDung = maNguoiDung,TenVi = tenVi,MaVi = maVi});
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung,
+                TenVi = tenVi,
+                MaVi = maVi
+            });
             return soLuong > 0;
         }
 
-        public async Task<int> XoaMemVi(int maVi,int maNguoiDung)
+        public async Task<int> XoaMemVi(int maVi, int maNguoiDung)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             string cauLenh = @"UPDATE Vi
@@ -95,7 +110,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                AND MaNguoiDung = @MaNguoiDung
                                AND NgayXoa IS NULL
             ";
-            return await ketNoi.ExecuteAsync(cauLenh,new{MaVi = maVi,MaNguoiDung = maNguoiDung});
+            return await ketNoi.ExecuteAsync(cauLenh, new
+            {
+                MaVi = maVi,
+                MaNguoiDung = maNguoiDung
+            });
         }
     }
 }

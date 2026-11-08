@@ -23,7 +23,8 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         {
             if (thang < 1 || thang > 12 || nam < 2000 || nam > 9998)
                 throw new ArgumentException("Tháng từ 1 đến 12, năm từ 2000 đến 9998");
-            if (maYeuCau == Guid.Empty) throw new ArgumentException("Mã yêu cầu phải là GUID khác rỗng");
+            if (maYeuCau == Guid.Empty)
+                throw new ArgumentException("Mã yêu cầu phải là GUID khác rỗng");
             var baoCao = await baoCaoThangRepository.TaoYeuCau(maNguoiDung, thang, nam, maYeuCau, diaChiIP);
             ChuanHoaGioUTC(baoCao);
             return baoCao;
@@ -32,7 +33,8 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         public async Task<BaoCaoThang?> LayTheoMa(long maBaoCao, int maNguoiDung)
         {
             var baoCao = await baoCaoThangRepository.LayTheoMa(maBaoCao, maNguoiDung);
-            if (baoCao != null) ChuanHoaGioUTC(baoCao);
+            if (baoCao != null)
+                ChuanHoaGioUTC(baoCao);
             return baoCao;
         }
 
@@ -54,13 +56,15 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         public async Task<bool> XuLyHangDoi(CancellationToken cancellationToken)
         {
             var baoCao = await baoCaoThangRepository.NhanYeuCau(cancellationToken);
-            if (baoCao == null) return false;
+            if (baoCao == null)
+                return false;
             try
             {
                 var duLieu = await baoCaoThangRepository.LayDuLieu(baoCao, cancellationToken);
                 cancellationToken.ThrowIfCancellationRequested();
                 byte[] filePDF = baoCaoPdfService.TaoFile(duLieu);
-                if (filePDF.Length > 20 * 1024 * 1024) throw new ArgumentException("Báo cáo vượt giới hạn file PDF 20 MB");
+                if (filePDF.Length > 20 * 1024 * 1024)
+                    throw new ArgumentException("Báo cáo vượt giới hạn file PDF 20 MB");
                 await baoCaoThangRepository.HoanThanh(baoCao, filePDF, cancellationToken);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -81,8 +85,10 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         private static void ChuanHoaGioUTC(BaoCaoThang baoCao)
         {
             baoCao.NgayTao = DateTime.SpecifyKind(baoCao.NgayTao, DateTimeKind.Utc);
-            if (baoCao.NgayBatDau.HasValue) baoCao.NgayBatDau = DateTime.SpecifyKind(baoCao.NgayBatDau.Value, DateTimeKind.Utc);
-            if (baoCao.NgayHoanThanh.HasValue) baoCao.NgayHoanThanh = DateTime.SpecifyKind(baoCao.NgayHoanThanh.Value, DateTimeKind.Utc);
+            if (baoCao.NgayBatDau.HasValue)
+                baoCao.NgayBatDau = DateTime.SpecifyKind(baoCao.NgayBatDau.Value, DateTimeKind.Utc);
+            if (baoCao.NgayHoanThanh.HasValue)
+                baoCao.NgayHoanThanh = DateTime.SpecifyKind(baoCao.NgayHoanThanh.Value, DateTimeKind.Utc);
         }
     }
 }

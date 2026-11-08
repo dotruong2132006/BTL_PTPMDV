@@ -79,7 +79,7 @@ builder.Services.AddSwaggerGen(options =>
             Scheme = "bearer",
             BearerFormat = "JWT",
             In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-            Description ="Nh?p Access Token theo d?ng: Bearer {token}"
+            Description = "Nh?p Access Token theo d?ng: Bearer {token}"
         }
     );
     options.AddSecurityRequirement(
@@ -99,7 +99,7 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 
-var chuoiKetNoi =builder.Configuration.GetConnectionString("KetNoiCSDL");
+var chuoiKetNoi = builder.Configuration.GetConnectionString("KetNoiCSDL");
 builder.Services.AddSingleton<DapperConnectionFactory>(new DapperConnectionFactory(chuoiKetNoi!));
 builder.Services.AddHealthChecks().AddCheck<KetNoiCSDLHealthCheck>("database", timeout: TimeSpan.FromSeconds(6));
 builder.Services.AddScoped<NhatKyAuditRepository>();
@@ -133,7 +133,6 @@ app.UseAuthorization();
 app.UseMiddleware<AuditLogMiddleware>();
 
 app.MapControllers();
-app.MapGet("/", () => Results.Redirect("/swagger")).AllowAnonymous();
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false }).AllowAnonymous();
 app.MapHealthChecks("/health/ready").RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
 

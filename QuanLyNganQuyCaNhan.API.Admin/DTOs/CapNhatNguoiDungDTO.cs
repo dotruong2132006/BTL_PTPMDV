@@ -1,4 +1,4 @@
-﻿namespace QuanLyNganQuyCaNhan.API.Admin.DTOs
+namespace QuanLyNganQuyCaNhan.API.Admin.DTOs
 {
     public class CapNhatNguoiDungDTO
     {
@@ -8,6 +8,9 @@
 
         public string SoDienThoai { get; set; } = string.Empty;
 
-        public bool TrangThai { get; set; }
+        public bool TrangThai
+        {
+            get; set;
+        }
     }
 }

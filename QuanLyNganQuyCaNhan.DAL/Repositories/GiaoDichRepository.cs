@@ -100,7 +100,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE gd.MaGiaoDich = @MaGiaoDich
                                AND gd.MaNguoiDung = @MaNguoiDung
                                AND gd.NgayXoa IS NULL";
-            return await ketNoi.QueryFirstOrDefaultAsync<GiaoDich>(cauLenh,new { MaGiaoDich = maGiaoDich, MaNguoiDung = maNguoiDung });
+            return await ketNoi.QueryFirstOrDefaultAsync<GiaoDich>(cauLenh, new
+            {
+                MaGiaoDich = maGiaoDich,
+                MaNguoiDung = maNguoiDung
+            });
         }
 
         public async Task<bool> KiemTraNguoiDungTonTai(int maNguoiDung)
@@ -110,7 +114,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                WHERE MaNguoiDung = @MaNguoiDung
                                AND TrangThai = 1
                                AND NgayXoa IS NULL";
-            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new { MaNguoiDung = maNguoiDung });
+            int soLuong = await ketNoi.ExecuteScalarAsync<int>(cauLenh, new
+            {
+                MaNguoiDung = maNguoiDung
+            });
             return soLuong > 0;
         }
 
@@ -169,7 +176,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             }
             catch
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw;
             }
         }
@@ -190,7 +201,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                                 AND NgayXoa IS NULL";
                 GiaoDich? giaoDichCu = await ketNoi.QueryFirstOrDefaultAsync<GiaoDich>(
                     cauLenhLayGiaoDich,
-                    new { giaoDich.MaGiaoDich, giaoDich.MaNguoiDung },
+                    new
+                    {
+                        giaoDich.MaGiaoDich,
+                        giaoDich.MaNguoiDung
+                    },
                     giaoDichCSDL);
 
                 if (giaoDichCu == null || giaoDichCu.PhienBan != giaoDich.PhienBan)
@@ -240,7 +255,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             }
             catch
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw;
             }
         }
@@ -260,7 +279,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                                 AND NgayXoa IS NULL";
                 GiaoDich? giaoDichCu = await ketNoi.QueryFirstOrDefaultAsync<GiaoDich>(
                     cauLenhLayGiaoDich,
-                    new { MaGiaoDich = maGiaoDich, MaNguoiDung = maNguoiDung },
+                    new
+                    {
+                        MaGiaoDich = maGiaoDich,
+                        MaNguoiDung = maNguoiDung
+                    },
                     giaoDichCSDL);
 
                 if (giaoDichCu == null)
@@ -269,7 +292,7 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                     return 0;
                 }
 
-                await CapNhatSoDuVi(ketNoi, giaoDichCSDL, maNguoiDung, giaoDichCu.MaVi,-TinhBienDong(giaoDichCu.LoaiGiaoDich, giaoDichCu.SoTien));
+                await CapNhatSoDuVi(ketNoi, giaoDichCSDL, maNguoiDung, giaoDichCu.MaVi, -TinhBienDong(giaoDichCu.LoaiGiaoDich, giaoDichCu.SoTien));
 
                 string cauLenhXoaMem = @"UPDATE GiaoDich
                                         SET NgayXoa = SYSDATETIME(),
@@ -297,7 +320,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             }
             catch
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw;
             }
         }
@@ -324,7 +351,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                                  AND TrangThai = 1
                                                  AND NgayXoa IS NULL";
             int nguoiDungHopLe = await ketNoi.ExecuteScalarAsync<int>(cauLenhKiemTraNguoiDung,
-                new { giaoDich.MaNguoiDung }, giaoDichCSDL);
+                new
+                {
+                    giaoDich.MaNguoiDung
+                }, giaoDichCSDL);
             if (nguoiDungHopLe != 1)
                 return false;
 
@@ -335,7 +365,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                          WHERE MaVi = @MaVi
                                            AND MaNguoiDung = @MaNguoiDung";
                 int? viTonTai = await ketNoi.QueryFirstOrDefaultAsync<int?>(cauLenhKhoaVi,
-                    new { MaVi = maVi, giaoDich.MaNguoiDung }, giaoDichCSDL);
+                    new
+                    {
+                        MaVi = maVi,
+                        giaoDich.MaNguoiDung
+                    }, giaoDichCSDL);
                 if (!viTonTai.HasValue)
                     return false;
             }
@@ -347,7 +381,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                           AND TrangThai = 1
                                           AND NgayXoa IS NULL";
             int viDichHopLe = await ketNoi.ExecuteScalarAsync<int>(cauLenhKiemTraVi,
-                new { giaoDich.MaVi, giaoDich.MaNguoiDung }, giaoDichCSDL);
+                new
+                {
+                    giaoDich.MaVi,
+                    giaoDich.MaNguoiDung
+                }, giaoDichCSDL);
             if (viDichHopLe != 1)
                 return false;
 

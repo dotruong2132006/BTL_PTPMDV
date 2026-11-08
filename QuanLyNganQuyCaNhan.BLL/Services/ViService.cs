@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,36 +23,40 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         }
         public async Task<int> ThemVi(Vi vi)
         {
-            bool nguoiDungTonTai =await viRepository.KiemTraNguoiDungTonTai(vi.MaNguoiDung);
-            if (!nguoiDungTonTai) throw new Exception("Người dùng không tồn tại");
-            bool trungTenVi = await viRepository.KiemTraTenViTonTai(vi.MaNguoiDung,vi.TenVi);
-            if (trungTenVi) throw new Exception("Tên ví đã tồn tại");
+            bool nguoiDungTonTai = await viRepository.KiemTraNguoiDungTonTai(vi.MaNguoiDung);
+            if (!nguoiDungTonTai)
+                throw new Exception("Người dùng không tồn tại");
+            bool trungTenVi = await viRepository.KiemTraTenViTonTai(vi.MaNguoiDung, vi.TenVi);
+            if (trungTenVi)
+                throw new Exception("Tên ví đã tồn tại");
             return await viRepository.ThemVi(vi);
         }
-        public async Task<bool> KiemTraTenViTonTai(int maNguoiDung,string tenVi)
+        public async Task<bool> KiemTraTenViTonTai(int maNguoiDung, string tenVi)
         {
-            return await viRepository.KiemTraTenViTonTai(maNguoiDung,tenVi);
+            return await viRepository.KiemTraTenViTonTai(maNguoiDung, tenVi);
         }
 
         public async Task<bool> KiemTraNguoiDungTonTai(int maNguoiDung)
         {
-            return await viRepository.KiemTraNguoiDungTonTai( maNguoiDung);
+            return await viRepository.KiemTraNguoiDungTonTai(maNguoiDung);
         }
         public async Task<int> CapNhatVi(Vi vi)
         {
             bool nguoiDungTonTai = await viRepository.KiemTraNguoiDungTonTai(vi.MaNguoiDung);
-            if (!nguoiDungTonTai) throw new Exception("Người dùng không tồn tại");
-            bool trungTenVi = await viRepository.KiemTraTenViTrungKhiCapNhat(vi.MaNguoiDung,vi.TenVi,vi.MaVi);
-            if (trungTenVi) throw new Exception("Tên ví đã được sử dụng");
+            if (!nguoiDungTonTai)
+                throw new Exception("Người dùng không tồn tại");
+            bool trungTenVi = await viRepository.KiemTraTenViTrungKhiCapNhat(vi.MaNguoiDung, vi.TenVi, vi.MaVi);
+            if (trungTenVi)
+                throw new Exception("Tên ví đã được sử dụng");
             return await viRepository.CapNhatVi(vi);
         }
-        public async Task<bool> KiemTraTenViTrungKhiCapNhat(int maNguoiDung,string tenVi,int maVi)
+        public async Task<bool> KiemTraTenViTrungKhiCapNhat(int maNguoiDung, string tenVi, int maVi)
         {
-            return await viRepository.KiemTraTenViTrungKhiCapNhat(maNguoiDung,tenVi,maVi);
+            return await viRepository.KiemTraTenViTrungKhiCapNhat(maNguoiDung, tenVi, maVi);
         }
-        public async Task<int> XoaMemVi(int maVi,int maNguoiDung)
+        public async Task<int> XoaMemVi(int maVi, int maNguoiDung)
         {
-            return await viRepository.XoaMemVi(maVi,maNguoiDung);
+            return await viRepository.XoaMemVi(maVi, maNguoiDung);
         }
     }
 }

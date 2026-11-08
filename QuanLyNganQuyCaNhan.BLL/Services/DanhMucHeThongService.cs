@@ -7,7 +7,10 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
     public class DanhMucHeThongService : IDanhMucHeThongService
     {
         private readonly DanhMucRepository danhMucRepository;
-        public DanhMucHeThongService(DanhMucRepository danhMucRepository) { this.danhMucRepository = danhMucRepository; }
+        public DanhMucHeThongService(DanhMucRepository danhMucRepository)
+        {
+            this.danhMucRepository = danhMucRepository;
+        }
 
         public Task<IEnumerable<DanhMuc>> LayDanhSach(string? loaiDanhMuc)
         {
@@ -31,11 +34,15 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
 
         private static void KiemTra(DanhMuc danhMuc)
         {
-            if (string.IsNullOrWhiteSpace(danhMuc.TenDanhMuc)) throw new ArgumentException("Tên danh mục không được để trống");
+            if (string.IsNullOrWhiteSpace(danhMuc.TenDanhMuc))
+                throw new ArgumentException("Tên danh mục không được để trống");
             danhMuc.TenDanhMuc = danhMuc.TenDanhMuc.Trim();
-            if (danhMuc.TenDanhMuc.Length > 100) throw new ArgumentException("Tên danh mục tối đa 100 ký tự");
-            if (danhMuc.MoTa?.Length > 255) throw new ArgumentException("Mô tả tối đa 255 ký tự");
-            if (danhMuc.LoaiDanhMuc != "THU" && danhMuc.LoaiDanhMuc != "CHI") throw new ArgumentException("Loại danh mục chỉ được là THU hoặc CHI");
+            if (danhMuc.TenDanhMuc.Length > 100)
+                throw new ArgumentException("Tên danh mục tối đa 100 ký tự");
+            if (danhMuc.MoTa?.Length > 255)
+                throw new ArgumentException("Mô tả tối đa 255 ký tự");
+            if (danhMuc.LoaiDanhMuc != "THU" && danhMuc.LoaiDanhMuc != "CHI")
+                throw new ArgumentException("Loại danh mục chỉ được là THU hoặc CHI");
             danhMuc.MaNguoiDung = null;
         }
     }

@@ -1,4 +1,6 @@
 namespace QuanLyNganQuyCaNhan.API.Admin.DTOs
 {
-    public class CapNhatDanhMucHeThongDTO : ThemDanhMucHeThongDTO { }
+    public class CapNhatDanhMucHeThongDTO : ThemDanhMucHeThongDTO
+    {
+    }
 }

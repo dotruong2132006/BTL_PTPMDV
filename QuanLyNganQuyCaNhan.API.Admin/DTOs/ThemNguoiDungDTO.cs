@@ -1,4 +1,4 @@
-﻿namespace QuanLyNganQuyCaNhan.API.Admin.DTOs
+namespace QuanLyNganQuyCaNhan.API.Admin.DTOs
 {
     public class ThemNguoiDungDTO
     {

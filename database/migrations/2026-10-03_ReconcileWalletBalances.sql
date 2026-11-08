@@ -4,36 +4,49 @@
    Review the assumption and take a database backup before running this script.
    Run 2026-10-05_AllowNegativeWalletBalances.sql first to allow expenses exceeding income.
 */
-SET NOCOUNT ON;
-SET XACT_ABORT ON;
+SET
+NOCOUNT ON;
 
-BEGIN TRY
-    BEGIN TRANSACTION;
+SET
+XACT_ABORT ON;
 
-    DECLARE @SoDuTheoGiaoDich TABLE
-    (
-        MaVi INT NOT NULL PRIMARY KEY,
-        SoDu DECIMAL(38, 2) NOT NULL
-    );
+BEGIN TRY BEGIN TRANSACTION;
 
-    INSERT INTO @SoDuTheoGiaoDich (MaVi, SoDu)
-    SELECT MaVi,
-           SUM(CASE WHEN LoaiGiaoDich = 'THU' THEN SoTien ELSE -SoTien END)
-    FROM GiaoDich
-    WHERE NgayXoa IS NULL
-    GROUP BY MaVi;
+DECLARE @SoDuTheoGiaoDich
+TABLE (
+    MaVi INT NOT NULL PRIMARY KEY,
+    SoDu DECIMAL(38, 2) NOT NULL
+);
 
-    UPDATE v
-    SET SoDu = COALESCE(sd.SoDu, 0),
-        NgayCapNhat = SYSDATETIME()
-    FROM Vi v
+INSERT INTO
+    @SoDuTheoGiaoDich (MaVi, SoDu)
+SELECT
+    MaVi,
+    SUM(
+        CASE
+            WHEN LoaiGiaoDich = 'THU' THEN SoTien
+            ELSE - SoTien
+        END
+    )
+FROM
+    GiaoDich
+WHERE
+    NgayXoa IS NULL
+GROUP BY
+    MaVi;
+
+UPDATE v
+SET
+    SoDu = COALESCE(sd.SoDu, 0),
+    NgayCapNhat = SYSDATETIME()
+FROM
+    Vi v
     LEFT JOIN @SoDuTheoGiaoDich sd ON sd.MaVi = v.MaVi;
 
-    COMMIT TRANSACTION;
-END TRY
-BEGIN CATCH
-    IF @@TRANCOUNT > 0
-        ROLLBACK TRANSACTION;
+COMMIT TRANSACTION;
 
-    THROW;
+END TRY BEGIN CATCH IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+
+THROW;
+
 END CATCH;

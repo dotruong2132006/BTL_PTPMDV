@@ -88,7 +88,7 @@ namespace QuanLyNganQuyCaNhan.API.Shared.Middleware
                     detectEncodingFromByteOrderMarks: true,
                     bufferSize: 1024,
                     leaveOpen: true).ReadToEndAsync();
-                    thanPhanHoiTam.Position = 0;
+                thanPhanHoiTam.Position = 0;
 
                 if (xuLyHoanTat && context.Response.StatusCode >= 200 && context.Response.StatusCode < 300)
                 {
@@ -127,33 +127,39 @@ namespace QuanLyNganQuyCaNhan.API.Shared.Middleware
             string? tenController = LayTenController(context);
             string? tenAction = LayTenAction(context);
 
-            if (tenController == "DangKy") return "NguoiDung";
-            if (tenController == "DanhMucHeThong") return "DanhMuc";
+            if (tenController == "DangKy")
+                return "NguoiDung";
+            if (tenController == "DanhMucHeThong")
+                return "DanhMuc";
             if (tenController == "HaiFa" && (tenAction == "Bat2FA" || tenAction == "Tat2FA"))
                 return "NguoiDung";
-            return tenController != null && TenKhoaTheoBang.ContainsKey(tenController)? tenController: null;
+            return tenController != null && TenKhoaTheoBang.ContainsKey(tenController) ? tenController : null;
         }
 
         private static string? LayHanhDong(HttpContext context)
         {
             string? tenController = LayTenController(context);
             string? tenAction = LayTenAction(context);
-            if (tenController == "HaiFa") return "CAP_NHAT_2FA";
+            if (tenController == "HaiFa")
+                return "CAP_NHAT_2FA";
 
             string phuongThuc = context.Request.Method;
-            if (HttpMethods.IsPost(phuongThuc)) return "THEM";
-            if (HttpMethods.IsPut(phuongThuc) || HttpMethods.IsPatch(phuongThuc)) return "CAP_NHAT";
-            if (HttpMethods.IsDelete(phuongThuc)) return "XOA_MEM";
+            if (HttpMethods.IsPost(phuongThuc))
+                return "THEM";
+            if (HttpMethods.IsPut(phuongThuc) || HttpMethods.IsPatch(phuongThuc))
+                return "CAP_NHAT";
+            if (HttpMethods.IsDelete(phuongThuc))
+                return "XOA_MEM";
             return null;
         }
         private static string? LayTenController(HttpContext context)
         {
-            return context.Request.RouteValues.TryGetValue("controller", out object? value)? Convert.ToString(value, CultureInfo.InvariantCulture): null;
+            return context.Request.RouteValues.TryGetValue("controller", out object? value) ? Convert.ToString(value, CultureInfo.InvariantCulture) : null;
         }
 
         private static string? LayTenAction(HttpContext context)
         {
-            return context.Request.RouteValues.TryGetValue("action", out object? value)? Convert.ToString(value, CultureInfo.InvariantCulture): null;
+            return context.Request.RouteValues.TryGetValue("action", out object? value) ? Convert.ToString(value, CultureInfo.InvariantCulture) : null;
         }
 
         private static int? LayMaNguoiDung(HttpContext context)
@@ -166,8 +172,8 @@ namespace QuanLyNganQuyCaNhan.API.Shared.Middleware
         {
             if (!TenKhoaTheoBang.TryGetValue(tenBang, out string? tenKhoa))
                 return null;
-            string? giaTri = context.Request.RouteValues.TryGetValue(tenKhoa, out object? value)? Convert.ToString(value, CultureInfo.InvariantCulture): null;
-            return long.TryParse(giaTri, NumberStyles.None, CultureInfo.InvariantCulture, out long maBanGhi)? maBanGhi: null;
+            string? giaTri = context.Request.RouteValues.TryGetValue(tenKhoa, out object? value) ? Convert.ToString(value, CultureInfo.InvariantCulture) : null;
+            return long.TryParse(giaTri, NumberStyles.None, CultureInfo.InvariantCulture, out long maBanGhi) ? maBanGhi : null;
         }
 
         private static long? LayMaBanGhiTuPhanHoi(string noiDungPhanHoi, string tenBang)

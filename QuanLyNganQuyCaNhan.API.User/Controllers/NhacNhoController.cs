@@ -35,17 +35,27 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         public async Task<IActionResult> LayTheoMa(int maNhacNho)
         {
             var nhacNho = await nhacNhoService.LayTheoMa(maNhacNho, LayMaNguoiDungTuToken());
-            if (nhacNho == null) return NotFound(new { ThongBao = "Không tìm thấy nhắc nhở" });
+            if (nhacNho == null)
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy nhắc nhở"
+                });
             return Ok(nhacNho);
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> ThemNhacNho([FromBody] ThemNhacNhoDTO duLieu)
         {
             try
             {
                 int maNhacNho = await nhacNhoService.ThemNhacNho(TaoNhacNho(duLieu));
-                return Ok(new { MaNhacNho = maNhacNho, PhienBan = 1, ThongBao = "Thêm nhắc nhở thành công" });
+                return StatusCode(StatusCodes.Status201Created, new
+                {
+                    MaNhacNho = maNhacNho,
+                    PhienBan = 1,
+                    ThongBao = "Thêm nhắc nhở thành công"
+                });
             }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
@@ -59,10 +69,22 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 nhacNho.MaNhacNho = maNhacNho;
                 nhacNho.PhienBan = duLieu.PhienBan;
                 var hienTai = await nhacNhoService.LayTheoMa(maNhacNho, nhacNho.MaNguoiDung);
-                if (hienTai == null) return NotFound(new { ThongBao = "Không tìm thấy nhắc nhở" });
+                if (hienTai == null)
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy nhắc nhở"
+                    });
                 if (hienTai.PhienBan != duLieu.PhienBan || await nhacNhoService.CapNhatNhacNho(nhacNho) == 0)
-                    return Conflict(new { ThongBao = "Nhắc nhở đã thay đổi; vui lòng tải lại dữ liệu" });
-                return Ok(new { MaNhacNho = maNhacNho, PhienBan = duLieu.PhienBan + 1, ThongBao = "Cập nhật nhắc nhở thành công" });
+                    return Conflict(new
+                    {
+                        ThongBao = "Nhắc nhở đã thay đổi; vui lòng tải lại dữ liệu"
+                    });
+                return Ok(new
+                {
+                    MaNhacNho = maNhacNho,
+                    PhienBan = duLieu.PhienBan + 1,
+                    ThongBao = "Cập nhật nhắc nhở thành công"
+                });
             }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
@@ -71,15 +93,30 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         public async Task<IActionResult> XoaMemNhacNho(int maNhacNho)
         {
             int soDong = await nhacNhoService.XoaMemNhacNho(maNhacNho, LayMaNguoiDungTuToken());
-            if (soDong == 0) return NotFound(new { ThongBao = "Không tìm thấy nhắc nhở" });
-            return Ok(new { MaNhacNho = maNhacNho, ThongBao = "Xóa nhắc nhở thành công" });
+            if (soDong == 0)
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy nhắc nhở"
+                });
+            return Ok(new
+            {
+                MaNhacNho = maNhacNho,
+                ThongBao = "Xóa nhắc nhở thành công"
+            });
         }
 
         private NhacNho TaoNhacNho(ThemNhacNhoDTO duLieu)
         {
-            return new NhacNho { MaNguoiDung = LayMaNguoiDungTuToken(), TieuDe = duLieu.TieuDe,
-                NoiDung = duLieu.NoiDung, NgayNhac = duLieu.NgayNhac.UtcDateTime,
-                LapLai = duLieu.LapLai, KieuLapLai = duLieu.KieuLapLai, TrangThai = duLieu.TrangThai };
+            return new NhacNho
+            {
+                MaNguoiDung = LayMaNguoiDungTuToken(),
+                TieuDe = duLieu.TieuDe,
+                NoiDung = duLieu.NoiDung,
+                NgayNhac = duLieu.NgayNhac.UtcDateTime,
+                LapLai = duLieu.LapLai,
+                KieuLapLai = duLieu.KieuLapLai,
+                TrangThai = duLieu.TrangThai
+            };
         }
     }
 }

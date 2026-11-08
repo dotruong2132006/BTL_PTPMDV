@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Models
 {
     public class NguoiDung
     {
-        public int MaNguoiDung { get; set; }
+        public int MaNguoiDung
+        {
+            get; set;
+        }
 
         public string TenDangNhap { get; set; } = string.Empty;
 
@@ -20,16 +23,31 @@ namespace QuanLyNganQuyCaNhan.DAL.Models
 
         public string SoDienThoai { get; set; } = string.Empty;
 
-        public bool DaBat2FA { get; set; }
+        public bool DaBat2FA
+        {
+            get; set;
+        }
 
         public string MaBiMat2FA { get; set; } = string.Empty;
 
-        public bool TrangThai { get; set; }
+        public bool TrangThai
+        {
+            get; set;
+        }
 
-        public DateTime NgayTao { get; set; }
+        public DateTime NgayTao
+        {
+            get; set;
+        }
 
-        public DateTime? NgayCapNhat { get; set; }
+        public DateTime? NgayCapNhat
+        {
+            get; set;
+        }
 
-        public DateTime? NgayXoa { get; set; }
+        public DateTime? NgayXoa
+        {
+            get; set;
+        }
     }
 }

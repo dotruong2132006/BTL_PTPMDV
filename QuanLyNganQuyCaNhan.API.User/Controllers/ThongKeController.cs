@@ -11,7 +11,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
     public class ThongKeController : ControllerBase
     {
         private readonly IThongKeService thongKeService;
-        public ThongKeController(IThongKeService thongKeService) { this.thongKeService = thongKeService; }
+        public ThongKeController(IThongKeService thongKeService)
+        {
+            this.thongKeService = thongKeService;
+        }
 
         private int LayMaNguoiDungTuToken()
         {
@@ -23,21 +26,30 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         [HttpGet("tong-quan")]
         public async Task<IActionResult> LayTongQuan([FromQuery] int thang, [FromQuery] int nam)
         {
-            try { return Ok(await thongKeService.LayTongQuan(LayMaNguoiDungTuToken(), thang, nam, HttpContext.RequestAborted)); }
+            try
+            {
+                return Ok(await thongKeService.LayTongQuan(LayMaNguoiDungTuToken(), thang, nam, HttpContext.RequestAborted));
+            }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
 
         [HttpGet("theo-thang")]
         public async Task<IActionResult> LayTheoThang([FromQuery] int nam, [FromQuery] int? maVi = null)
         {
-            try { return Ok(await thongKeService.LayTheoThang(LayMaNguoiDungTuToken(), nam, maVi, HttpContext.RequestAborted)); }
+            try
+            {
+                return Ok(await thongKeService.LayTheoThang(LayMaNguoiDungTuToken(), nam, maVi, HttpContext.RequestAborted));
+            }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
 
         [HttpGet("theo-danh-muc")]
         public async Task<IActionResult> LayTheoDanhMuc([FromQuery] int thang, [FromQuery] int nam, [FromQuery] int? maVi = null)
         {
-            try { return Ok(await thongKeService.LayTheoDanhMuc(LayMaNguoiDungTuToken(), thang, nam, maVi, HttpContext.RequestAborted)); }
+            try
+            {
+                return Ok(await thongKeService.LayTheoDanhMuc(LayMaNguoiDungTuToken(), thang, nam, maVi, HttpContext.RequestAborted));
+            }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
     }

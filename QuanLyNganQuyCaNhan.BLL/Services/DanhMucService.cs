@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,18 +24,19 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         {
             danhMuc.TenDanhMuc = KiemTraVaChuanHoaTen(danhMuc.TenDanhMuc);
 
-            if (!danhMuc.MaNguoiDung.HasValue) throw new ArgumentException("Không xác định được người dùng");
-            bool nguoiDungTonTai =await danhMucRepository.KiemTraNguoiDungTonTai(danhMuc.MaNguoiDung.Value);
+            if (!danhMuc.MaNguoiDung.HasValue)
+                throw new ArgumentException("Không xác định được người dùng");
+            bool nguoiDungTonTai = await danhMucRepository.KiemTraNguoiDungTonTai(danhMuc.MaNguoiDung.Value);
             if (!nguoiDungTonTai)
             {
                 throw new Exception("Người dùng không tồn tại");
             }
-            bool trungTen =await danhMucRepository.KiemTraTenDanhMucTonTai(danhMuc.MaNguoiDung.Value,danhMuc.TenDanhMuc);
+            bool trungTen = await danhMucRepository.KiemTraTenDanhMucTonTai(danhMuc.MaNguoiDung.Value, danhMuc.TenDanhMuc);
             if (trungTen)
             {
                 throw new Exception("Tên danh mục đã tồn tại");
             }
-            if (danhMuc.LoaiDanhMuc != "THU" &&danhMuc.LoaiDanhMuc != "CHI")
+            if (danhMuc.LoaiDanhMuc != "THU" && danhMuc.LoaiDanhMuc != "CHI")
             {
                 throw new Exception("Loại danh mục chỉ được là THU hoặc CHI");
             }
@@ -45,17 +46,19 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         {
             danhMuc.TenDanhMuc = KiemTraVaChuanHoaTen(danhMuc.TenDanhMuc);
 
-            if (!danhMuc.MaNguoiDung.HasValue) throw new ArgumentException("Không xác định được người dùng");
-            bool nguoiDungTonTai =await danhMucRepository.KiemTraNguoiDungTonTai(danhMuc.MaNguoiDung.Value);
+            if (!danhMuc.MaNguoiDung.HasValue)
+                throw new ArgumentException("Không xác định được người dùng");
+            bool nguoiDungTonTai = await danhMucRepository.KiemTraNguoiDungTonTai(danhMuc.MaNguoiDung.Value);
             if (!nguoiDungTonTai)
             {
                 throw new Exception("Người dùng không tồn tại");
             }
-            bool trungTen =await danhMucRepository.KiemTraTenDanhMucTonTai(danhMuc.MaNguoiDung.Value,danhMuc.TenDanhMuc,danhMuc.MaDanhMuc); if (trungTen)
+            bool trungTen = await danhMucRepository.KiemTraTenDanhMucTonTai(danhMuc.MaNguoiDung.Value, danhMuc.TenDanhMuc, danhMuc.MaDanhMuc);
+            if (trungTen)
             {
                 throw new Exception("Tên danh mục đã tồn tại");
             }
-            if (danhMuc.LoaiDanhMuc != "THU" &&danhMuc.LoaiDanhMuc != "CHI")
+            if (danhMuc.LoaiDanhMuc != "THU" && danhMuc.LoaiDanhMuc != "CHI")
             {
                 throw new Exception("Loại danh mục chỉ được là THU hoặc CHI");
             }

@@ -44,8 +44,14 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                  AND (@MaNganSach IS NULL OR ns.MaNganSach = @MaNganSach)
                                ORDER BY ns.Nam DESC, ns.Thang DESC, ns.MaNganSach DESC";
             return await ketNoi.QueryAsync<TinhTrangNganSach>(cauLenh,
-                new { MaNguoiDung = maNguoiDung, Thang = thang, Nam = nam,
-                    MaDanhMuc = maDanhMuc, MaNganSach = maNganSach });
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    Thang = thang,
+                    Nam = nam,
+                    MaDanhMuc = maDanhMuc,
+                    MaNganSach = maNganSach
+                });
         }
 
         public async Task<int> ThemNganSach(NganSach nganSach)
@@ -106,12 +112,20 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             }
             catch (SqlException ex) when (ex.Number == 2601 || ex.Number == 2627)
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw new ArgumentException("Danh mục đã có ngân sách trong tháng và năm này", ex);
             }
             catch
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw;
             }
         }
@@ -122,7 +136,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             string cauLenh = @"UPDATE NganSach SET NgayXoa = SYSDATETIME(), NgayCapNhat = SYSDATETIME()
                                WHERE MaNganSach = @MaNganSach AND MaNguoiDung = @MaNguoiDung
                                  AND NgayXoa IS NULL";
-            return await ketNoi.ExecuteAsync(cauLenh, new { MaNganSach = maNganSach, MaNguoiDung = maNguoiDung });
+            return await ketNoi.ExecuteAsync(cauLenh, new
+            {
+                MaNganSach = maNganSach,
+                MaNguoiDung = maNguoiDung
+            });
         }
     }
 }

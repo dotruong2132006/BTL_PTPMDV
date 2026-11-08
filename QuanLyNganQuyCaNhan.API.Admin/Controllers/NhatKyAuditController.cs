@@ -11,7 +11,10 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
     public class NhatKyAuditController : ControllerBase
     {
         private readonly INhatKyAuditService nhatKyAuditService;
-        public NhatKyAuditController(INhatKyAuditService nhatKyAuditService) { this.nhatKyAuditService = nhatKyAuditService; }
+        public NhatKyAuditController(INhatKyAuditService nhatKyAuditService)
+        {
+            this.nhatKyAuditService = nhatKyAuditService;
+        }
 
         [HttpGet]
         public async Task<IActionResult> LayDanhSach([FromQuery] BoLocNhatKyAudit boLoc)
@@ -20,10 +23,23 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
             {
                 var ketQua = await nhatKyAuditService.LayDanhSach(boLoc);
                 Response.Headers.CacheControl = "no-store";
-                return Ok(new { boLoc.Trang, boLoc.KichThuocTrang, ketQua.TongSoBanGhi,
+                return Ok(new
+                {
+                    boLoc.Trang,
+                    boLoc.KichThuocTrang,
+                    ketQua.TongSoBanGhi,
                     TongSoTrang = (long)Math.Ceiling((decimal)ketQua.TongSoBanGhi / boLoc.KichThuocTrang),
-                    DanhSach = ketQua.DanhSach.Select(x => new { x.MaAudit, x.MaNguoiDung, x.HanhDong,
-                        x.TenBang, x.MaBanGhi, x.DiaChiIP, x.ThoiGian }) });
+                    DanhSach = ketQua.DanhSach.Select(x => new
+                    {
+                        x.MaAudit,
+                        x.MaNguoiDung,
+                        x.HanhDong,
+                        x.TenBang,
+                        x.MaBanGhi,
+                        x.DiaChiIP,
+                        x.ThoiGian
+                    })
+                });
             }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
@@ -32,7 +48,11 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
         public async Task<IActionResult> LayTheoMa(long maAudit)
         {
             var nhatKy = await nhatKyAuditService.LayTheoMa(maAudit);
-            if (nhatKy == null) return NotFound(new { ThongBao = "Không tìm thấy nhật ký" });
+            if (nhatKy == null)
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy nhật ký"
+                });
             Response.Headers.CacheControl = "no-store";
             return Ok(nhatKy);
         }

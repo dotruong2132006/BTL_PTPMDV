@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,7 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         private readonly RefreshTokenRepository refreshTokenRepository;
         public RefreshTokenService(RefreshTokenRepository refreshTokenRepository)
         {
-            this.refreshTokenRepository =refreshTokenRepository;
+            this.refreshTokenRepository = refreshTokenRepository;
         }
         public async Task<long> ThemRefreshToken(RefreshToken refreshToken)
         {

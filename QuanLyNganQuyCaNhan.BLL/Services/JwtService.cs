@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,12 +16,12 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
             this.cauHinh = cauHinh;
         }
 
-        public string TaoToken(int maNguoiDung,string tenDangNhap,string vaiTro)
+        public string TaoToken(int maNguoiDung, string tenDangNhap, string vaiTro)
         {
             string khoaBiMat = cauHinh["Jwt:Key"]!;
             string issuer = cauHinh["Jwt:Issuer"]!;
             string audience = cauHinh["Jwt:Audience"]!;
-            int thoiGianHetHan =int.Parse(cauHinh["Jwt:ThoiGianHetHanPhut"]!);
+            int thoiGianHetHan = int.Parse(cauHinh["Jwt:ThoiGianHetHanPhut"]!);
 
             var danhSachClaims = new[]
             {
@@ -34,16 +34,16 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
 
             var khoa = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(khoaBiMat));
 
-            var thongTinKy = new SigningCredentials(khoa,SecurityAlgorithms.HmacSha256);
+            var thongTinKy = new SigningCredentials(khoa, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(issuer: issuer,audience: audience,claims: danhSachClaims,expires: DateTime.UtcNow.AddMinutes(thoiGianHetHan),signingCredentials: thongTinKy);
+            var token = new JwtSecurityToken(issuer: issuer, audience: audience, claims: danhSachClaims, expires: DateTime.UtcNow.AddMinutes(thoiGianHetHan), signingCredentials: thongTinKy);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         public string TaoRefreshToken()
         {
-            byte[] duLieuNgauNhien =RandomNumberGenerator.GetBytes(64);
+            byte[] duLieuNgauNhien = RandomNumberGenerator.GetBytes(64);
             return Convert.ToBase64String(duLieuNgauNhien);
         }
     }

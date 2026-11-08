@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = issuer,
             ValidAudience = audience,
-            IssuerSigningKey =new SymmetricSecurityKey(Encoding.UTF8.GetBytes(khoaBiMat!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(khoaBiMat!)),
             ClockSkew = TimeSpan.Zero
         };
 });
@@ -69,7 +69,7 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 
-var chuoiKetNoi =builder.Configuration.GetConnectionString("KetNoiCSDL");
+var chuoiKetNoi = builder.Configuration.GetConnectionString("KetNoiCSDL");
 
 builder.Services.AddSingleton<DapperConnectionFactory>(new DapperConnectionFactory(chuoiKetNoi!));
 builder.Services.AddHealthChecks().AddCheck<KetNoiCSDLHealthCheck>("database", timeout: TimeSpan.FromSeconds(6));

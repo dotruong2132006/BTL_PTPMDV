@@ -32,7 +32,12 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 FROM GiaoDich WHERE MaNguoiDung = @MaNguoiDung AND NgayXoa IS NULL
                     AND NgayGiaoDich >= @TuNgay AND NgayGiaoDich < @DenNgay;";
             using var ketQua = await ketNoi.QueryMultipleAsync(new CommandDefinition(sql,
-                new { MaNguoiDung = maNguoiDung, TuNgay = tuNgay, DenNgay = tuNgay.AddMonths(1) }, giaoDich,
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    TuNgay = tuNgay,
+                    DenNgay = tuNgay.AddMonths(1)
+                }, giaoDich,
                 cancellationToken: cancellationToken));
             // Đọc ví trước giao dịch theo thứ tự cập nhật nghiệp vụ để giảm nguy cơ deadlock.
             var danhSachVi = (await ketQua.ReadAsync<Vi>()).ToList();
@@ -57,8 +62,14 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                     AND (@MaVi IS NULL OR MaVi = @MaVi)
                 GROUP BY MONTH(NgayGiaoDich) ORDER BY Thang;";
             return await ketNoi.QueryAsync<ThongKeThang>(new CommandDefinition(sql,
-                new { MaNguoiDung = maNguoiDung, Nam = nam, MaVi = maVi,
-                    TuNgay = new DateTime(nam, 1, 1), DenNgay = new DateTime(nam + 1, 1, 1) }, cancellationToken: cancellationToken));
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    Nam = nam,
+                    MaVi = maVi,
+                    TuNgay = new DateTime(nam, 1, 1),
+                    DenNgay = new DateTime(nam + 1, 1, 1)
+                }, cancellationToken: cancellationToken));
         }
 
         public async Task<IEnumerable<ThongKeDanhMuc>> LayTheoDanhMuc(int maNguoiDung, int thang, int nam, int? maVi, CancellationToken cancellationToken)
@@ -76,7 +87,13 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 GROUP BY gd.MaDanhMuc, dm.TenDanhMuc, gd.LoaiGiaoDich
                 ORDER BY gd.LoaiGiaoDich, TongTien DESC, gd.MaDanhMuc;";
             return await ketNoi.QueryAsync<ThongKeDanhMuc>(new CommandDefinition(sql,
-                new { MaNguoiDung = maNguoiDung, MaVi = maVi, TuNgay = tuNgay, DenNgay = tuNgay.AddMonths(1) }, cancellationToken: cancellationToken));
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    MaVi = maVi,
+                    TuNgay = tuNgay,
+                    DenNgay = tuNgay.AddMonths(1)
+                }, cancellationToken: cancellationToken));
         }
     }
 }

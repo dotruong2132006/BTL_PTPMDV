@@ -9,6 +9,9 @@ namespace QuanLyNganQuyCaNhan.API.Admin.DTOs
         [Required, RegularExpression("^(THU|CHI)$")]
         public string LoaiDanhMuc { get; set; } = string.Empty;
         [StringLength(255)]
-        public string? MoTa { get; set; }
+        public string? MoTa
+        {
+            get; set;
+        }
     }
 }

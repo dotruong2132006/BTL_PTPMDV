@@ -88,7 +88,7 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         public static void KiemTraDuLieuGiaoDich(GiaoDich giaoDich)
         {
             giaoDich.LoaiGiaoDich = giaoDich.LoaiGiaoDich.Trim().ToUpperInvariant();
-            giaoDich.NoiDung = string.IsNullOrWhiteSpace(giaoDich.NoiDung)? null: giaoDich.NoiDung.Trim();
+            giaoDich.NoiDung = string.IsNullOrWhiteSpace(giaoDich.NoiDung) ? null : giaoDich.NoiDung.Trim();
 
             if (giaoDich.LoaiGiaoDich != "THU" && giaoDich.LoaiGiaoDich != "CHI")
                 throw new ArgumentException("Loại giao dịch chỉ được là THU hoặc CHI");

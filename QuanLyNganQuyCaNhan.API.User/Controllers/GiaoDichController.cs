@@ -16,7 +16,7 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         private readonly INganSachService nganSachService;
         private readonly ILogger<GiaoDichController> logger;
 
-        public GiaoDichController(IGiaoDichService giaoDichService, INganSachService nganSachService,ILogger<GiaoDichController> logger)
+        public GiaoDichController(IGiaoDichService giaoDichService, INganSachService nganSachService, ILogger<GiaoDichController> logger)
         {
             this.giaoDichService = giaoDichService;
             this.nganSachService = nganSachService;
@@ -59,7 +59,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -70,12 +73,16 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             var giaoDich = await giaoDichService.LayTheoMa(maGiaoDich, maNguoiDung);
             if (giaoDich == null)
             {
-                return NotFound(new { ThongBao = "Không tìm thấy giao dịch" });
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy giao dịch"
+                });
             }
             return Ok(giaoDich);
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> ThemGiaoDich([FromBody] ThemGiaoDichDTO duLieu)
         {
             try
@@ -93,7 +100,7 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
 
                 long maGiaoDich = await giaoDichService.ThemGiaoDich(giaoDich);
                 var canhBao = await LayCanhBaoSauKhiLuu(giaoDich);
-                return Ok(new
+                return StatusCode(StatusCodes.Status201Created, new
                 {
                     MaGiaoDich = maGiaoDich,
                     PhienBan = 1,
@@ -104,7 +111,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -117,11 +127,17 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 var giaoDichHienTai = await giaoDichService.LayTheoMa(maGiaoDich, maNguoiDung);
                 if (giaoDichHienTai == null)
                 {
-                    return NotFound(new { ThongBao = "Không tìm thấy giao dịch" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy giao dịch"
+                    });
                 }
                 if (giaoDichHienTai.PhienBan != duLieu.PhienBan)
                 {
-                    return Conflict(new { ThongBao = "Giao dịch đã được cập nhật; vui lòng tải lại dữ liệu" });
+                    return Conflict(new
+                    {
+                        ThongBao = "Giao dịch đã được cập nhật; vui lòng tải lại dữ liệu"
+                    });
                 }
 
                 var giaoDich = new GiaoDich
@@ -140,7 +156,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 int soDong = await giaoDichService.CapNhatGiaoDich(giaoDich);
                 if (soDong == 0)
                 {
-                    return Conflict(new { ThongBao = "Giao dịch đã được cập nhật; vui lòng tải lại dữ liệu" });
+                    return Conflict(new
+                    {
+                        ThongBao = "Giao dịch đã được cập nhật; vui lòng tải lại dữ liệu"
+                    });
                 }
 
                 var canhBao = await LayCanhBaoSauKhiLuu(giaoDich);
@@ -155,7 +174,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -168,13 +190,23 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 int soDong = await giaoDichService.XoaMemGiaoDich(maGiaoDich, maNguoiDung);
                 if (soDong == 0)
                 {
-                    return NotFound(new { ThongBao = "Không tìm thấy giao dịch" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy giao dịch"
+                    });
                 }
-                return Ok(new { MaGiaoDich = maGiaoDich, ThongBao = "Xóa giao dịch thành công" });
+                return Ok(new
+                {
+                    MaGiaoDich = maGiaoDich,
+                    ThongBao = "Xóa giao dịch thành công"
+                });
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 

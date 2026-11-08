@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +8,15 @@ namespace QuanLyNganQuyCaNhan.DAL.Models
 {
     public class DanhMuc
     {
-        public int MaDanhMuc { get; set; }
+        public int MaDanhMuc
+        {
+            get; set;
+        }
 
-        public int? MaNguoiDung { get; set; }
+        public int? MaNguoiDung
+        {
+            get; set;
+        }
 
         public bool LaDanhMucHeThong => !MaNguoiDung.HasValue;
 
@@ -18,10 +24,19 @@ namespace QuanLyNganQuyCaNhan.DAL.Models
 
         public string LoaiDanhMuc { get; set; } = string.Empty;
 
-        public string? MoTa { get; set; }
+        public string? MoTa
+        {
+            get; set;
+        }
 
-        public DateTime NgayTao { get; set; }
+        public DateTime NgayTao
+        {
+            get; set;
+        }
 
-        public DateTime? NgayXoa { get; set; }
+        public DateTime? NgayXoa
+        {
+            get; set;
+        }
     }
 }

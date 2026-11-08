@@ -19,6 +19,7 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> DangKy([FromBody] DangKyNguoiDungDTO duLieu)
         {
             try
@@ -33,7 +34,7 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 };
 
                 int maNguoiDung = await nguoiDungService.DangKyNguoiDung(nguoiDung);
-                return Ok(new
+                return StatusCode(StatusCodes.Status201Created, new
                 {
                     MaNguoiDung = maNguoiDung,
                     ThongBao = "Đăng ký tài khoản thành công"
@@ -41,11 +42,17 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
             catch (InvalidOperationException ex) when (ex.Message == "Tên đăng nhập hoặc email đã được sử dụng")
             {
-                return Conflict(new { ThongBao = ex.Message });
+                return Conflict(new
+                {
+                    ThongBao = ex.Message
+                });
             }
             catch (Exception)
             {

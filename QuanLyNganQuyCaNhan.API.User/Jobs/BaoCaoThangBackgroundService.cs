@@ -28,7 +28,8 @@ namespace QuanLyNganQuyCaNhan.API.User.Jobs
                     }
                     catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) { break; }
                     catch (Exception ex) { logger.LogError(ex, "Lỗi hàng đợi báo cáo PDF; sẽ thử lại sau 5 giây"); }
-                    if (!coYeuCau) await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                    if (!coYeuCau)
+                        await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
                 }
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) { }

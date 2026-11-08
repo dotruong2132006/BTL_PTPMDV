@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using QuanLyNganQuyCaNhan.BLL.Interfaces;
 using QuanLyNganQuyCaNhan.API.Admin.DTOs;
 using QuanLyNganQuyCaNhan.DAL.Models;
@@ -39,6 +39,7 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> ThemNguoiDung(ThemNguoiDungDTO duLieu)
         {
             try
@@ -53,11 +54,18 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
                 };
 
                 int maNguoiDung = await nguoiDungService.ThemNguoiDung(nguoiDung);
-                return Ok(new { MaNguoiDung = maNguoiDung, ThongBao = "Thêm người dùng thành công" });
+                return StatusCode(StatusCodes.Status201Created, new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    ThongBao = "Thêm người dùng thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -77,13 +85,23 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
                 int soDong = await nguoiDungService.CapNhatNguoiDung(nguoiDung);
                 if (soDong == 0)
                 {
-                    return NotFound(new { ThongBao = "Không tìm thấy người dùng" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy người dùng"
+                    });
                 }
-                return Ok(new { MaNguoiDung = maNguoiDung, ThongBao = "Cập nhật người dùng thành công" });
+                return Ok(new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    ThongBao = "Cập nhật người dùng thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -93,9 +111,16 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
             int soDong = await nguoiDungService.XoaMemNguoiDung(maNguoiDung);
             if (soDong == 0)
             {
-                return NotFound(new { ThongBao = "Không tìm thấy người dùng" });
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy người dùng"
+                });
             }
-            return Ok(new { MaNguoiDung = maNguoiDung, ThongBao = "Xóa người dùng thành công" });
+            return Ok(new
+            {
+                MaNguoiDung = maNguoiDung,
+                ThongBao = "Xóa người dùng thành công"
+            });
         }
     }
 }

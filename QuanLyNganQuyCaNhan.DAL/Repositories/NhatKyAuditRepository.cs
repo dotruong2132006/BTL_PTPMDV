@@ -30,7 +30,7 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             if (cauHinhBang.TheoNguoiDung && !maNguoiDung.HasValue)
                 return null;
 
-            string dieuKienNguoiDung = cauHinhBang.TheoNguoiDung? "AND MaNguoiDung = @MaNguoiDung": string.Empty;
+            string dieuKienNguoiDung = cauHinhBang.TheoNguoiDung ? "AND MaNguoiDung = @MaNguoiDung" : string.Empty;
             if (tenBang.Equals("DanhMuc", StringComparison.OrdinalIgnoreCase))
                 dieuKienNguoiDung = "AND (MaNguoiDung = @MaNguoiDung OR MaNguoiDung IS NULL)";
             string cauLenh = $@"SELECT (
@@ -42,7 +42,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                                )";
 
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
-            return await ketNoi.ExecuteScalarAsync<string?>(cauLenh, new{MaBanGhi = maBanGhi,MaNguoiDung = maNguoiDung});
+            return await ketNoi.ExecuteScalarAsync<string?>(cauLenh, new
+            {
+                MaBanGhi = maBanGhi,
+                MaNguoiDung = maNguoiDung
+            });
         }
 
         public async Task ThemNhatKy(NhatKyAudit nhatKy)
@@ -69,9 +73,17 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 FROM NhatKyAudit WHERE {dieuKien} ORDER BY ThoiGian DESC, MaAudit DESC
                 OFFSET @ViTriBatDau ROWS FETCH NEXT @KichThuocTrang ROWS ONLY;";
             using var ketQua = await ketNoi.QueryMultipleAsync(sql,
-                new { boLoc.MaNguoiDung, boLoc.TenBang, boLoc.HanhDong, boLoc.MaBanGhi,
-                    TuNgay = boLoc.TuNgay?.Date, DenNgay = boLoc.DenNgay?.Date.AddDays(1),
-                    ViTriBatDau = (long)(boLoc.Trang - 1) * boLoc.KichThuocTrang, boLoc.KichThuocTrang }, giaoDich);
+                new
+                {
+                    boLoc.MaNguoiDung,
+                    boLoc.TenBang,
+                    boLoc.HanhDong,
+                    boLoc.MaBanGhi,
+                    TuNgay = boLoc.TuNgay?.Date,
+                    DenNgay = boLoc.DenNgay?.Date.AddDays(1),
+                    ViTriBatDau = (long)(boLoc.Trang - 1) * boLoc.KichThuocTrang,
+                    boLoc.KichThuocTrang
+                }, giaoDich);
             long tongSoBanGhi = await ketQua.ReadSingleAsync<long>();
             var danhSach = (await ketQua.ReadAsync<NhatKyAudit>()).ToList();
             giaoDich.Commit();
@@ -83,7 +95,10 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             return await ketNoi.QuerySingleOrDefaultAsync<NhatKyAudit>(@"SELECT MaAudit, MaNguoiDung, HanhDong,
                 TenBang, MaBanGhi, DuLieuCu, DuLieuMoi, DiaChiIP, ThoiGian FROM NhatKyAudit WHERE MaAudit = @MaAudit",
-                new { MaAudit = maAudit });
+                new
+                {
+                    MaAudit = maAudit
+                });
         }
 
     }

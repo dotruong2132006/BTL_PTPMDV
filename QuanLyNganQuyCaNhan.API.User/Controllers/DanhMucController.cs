@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuanLyNganQuyCaNhan.API.User.DTOs;
 using QuanLyNganQuyCaNhan.BLL.Interfaces;
@@ -20,7 +20,7 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         }
         private int LayMaNguoiDungTuToken()
         {
-            string maNguoiDung =User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+            string maNguoiDung = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
             if (!int.TryParse(maNguoiDung, out int maNguoiDungInt))
             {
                 throw new Exception("Không xác định được người dùng");
@@ -33,11 +33,12 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         {
             int maNguoiDung = LayMaNguoiDungTuToken();
 
-            var danhSach =await danhMucService.LayDanhSach(maNguoiDung);
+            var danhSach = await danhMucService.LayDanhSach(maNguoiDung);
             return Ok(danhSach);
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> ThemDanhMuc([FromBody] ThemDanhMucDTO duLieu)
         {
             try
@@ -50,12 +51,19 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                     LoaiDanhMuc = duLieu.LoaiDanhMuc,
                     MoTa = duLieu.MoTa
                 };
-                int maDanhMuc =await danhMucService.ThemDanhMuc(danhMuc);
-                return Ok(new{MaDanhMuc = maDanhMuc,ThongBao = "Thêm danh mục thành công"});
+                int maDanhMuc = await danhMucService.ThemDanhMuc(danhMuc);
+                return StatusCode(StatusCodes.Status201Created, new
+                {
+                    MaDanhMuc = maDanhMuc,
+                    ThongBao = "Thêm danh mục thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new{ThongBao = ex.Message});
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -77,14 +85,24 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 int soDong = await danhMucService.CapNhatDanhMuc(danhMuc);
                 if (soDong == 0)
                 {
-                    return NotFound(new { ThongBao = "Không tìm thấy danh mục" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy danh mục"
+                    });
                 }
 
-                return Ok(new { MaDanhMuc = maDanhMuc, ThongBao = "Cập nhật danh mục thành công" });
+                return Ok(new
+                {
+                    MaDanhMuc = maDanhMuc,
+                    ThongBao = "Cập nhật danh mục thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -97,14 +115,24 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 int soDong = await danhMucService.XoaMemDanhMuc(maDanhMuc, maNguoiDung);
                 if (soDong == 0)
                 {
-                    return NotFound(new { ThongBao = "Không tìm thấy danh mục" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy danh mục"
+                    });
                 }
 
-                return Ok(new { MaDanhMuc = maDanhMuc, ThongBao = "Xóa danh mục thành công" });
+                return Ok(new
+                {
+                    MaDanhMuc = maDanhMuc,
+                    ThongBao = "Xóa danh mục thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
     }

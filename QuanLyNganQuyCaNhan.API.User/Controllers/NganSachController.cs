@@ -37,7 +37,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -46,7 +49,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         {
             var nganSach = await nganSachService.LayTheoMa(maNganSach, LayMaNguoiDungTuToken());
             if (nganSach == null)
-                return NotFound(new { ThongBao = "Không tìm thấy ngân sách" });
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy ngân sách"
+                });
             return Ok(nganSach);
         }
 
@@ -60,22 +66,33 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> ThemNganSach([FromBody] ThemNganSachDTO duLieu)
         {
             try
             {
                 var nganSach = TaoNganSach(duLieu);
                 int maNganSach = await nganSachService.ThemNganSach(nganSach);
-                return Ok(new { MaNganSach = maNganSach, ThongBao = "Thêm ngân sách thành công" });
+                return StatusCode(StatusCodes.Status201Created, new
+                {
+                    MaNganSach = maNganSach,
+                    ThongBao = "Thêm ngân sách thành công"
+                });
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -88,12 +105,22 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
                 nganSach.MaNganSach = maNganSach;
                 int soDong = await nganSachService.CapNhatNganSach(nganSach);
                 if (soDong == 0)
-                    return NotFound(new { ThongBao = "Không tìm thấy ngân sách" });
-                return Ok(new { MaNganSach = maNganSach, ThongBao = "Cập nhật ngân sách thành công" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy ngân sách"
+                    });
+                return Ok(new
+                {
+                    MaNganSach = maNganSach,
+                    ThongBao = "Cập nhật ngân sách thành công"
+                });
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -102,8 +129,15 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         {
             int soDong = await nganSachService.XoaMemNganSach(maNganSach, LayMaNguoiDungTuToken());
             if (soDong == 0)
-                return NotFound(new { ThongBao = "Không tìm thấy ngân sách" });
-            return Ok(new { MaNganSach = maNganSach, ThongBao = "Xóa ngân sách thành công" });
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy ngân sách"
+                });
+            return Ok(new
+            {
+                MaNganSach = maNganSach,
+                ThongBao = "Xóa ngân sách thành công"
+            });
         }
 
         private NganSach TaoNganSach(ThemNganSachDTO duLieu)

@@ -26,18 +26,26 @@ namespace QuanLyNganQuyCaNhan.Controllers
         [Authorize]
         [EnableRateLimiting("KhoiPhucTaiKhoan")]
         [HttpPost("tao-ma-khoi-phuc")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> TaoMaKhoiPhuc([FromBody] TaoMaKhoiPhucDTO duLieu)
         {
             if (!duLieu.DaHieuVaSeLuuMa)
-                return BadRequest(new { ThongBao = NhacLuuMa, CanXacNhanLuuMa = true });
+                return BadRequest(new
+                {
+                    ThongBao = NhacLuuMa,
+                    CanXacNhanLuuMa = true
+                });
             if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int maNguoiDung))
-                return Unauthorized(new { ThongBao = "Không xác định được người dùng" });
+                return Unauthorized(new
+                {
+                    ThongBao = "Không xác định được người dùng"
+                });
 
             try
             {
                 var cacMa = await maKhoiPhucService.TaoBoMa(maNguoiDung, duLieu.MatKhauHienTai,
                     duLieu.MaOTP, HttpContext.Connection.RemoteIpAddress?.ToString());
-                return Ok(new
+                return StatusCode(StatusCodes.Status201Created, new
                 {
                     ThongBao = "Tạo bộ mã khôi phục thành công",
                     MaKhoiPhuc = cacMa,
@@ -53,7 +61,10 @@ namespace QuanLyNganQuyCaNhan.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -62,7 +73,10 @@ namespace QuanLyNganQuyCaNhan.Controllers
         public async Task<IActionResult> LaySoMaConLai()
         {
             if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int maNguoiDung))
-                return Unauthorized(new { ThongBao = "Không xác định được người dùng" });
+                return Unauthorized(new
+                {
+                    ThongBao = "Không xác định được người dùng"
+                });
             int soMa = await maKhoiPhucService.LaySoMaConLai(maNguoiDung);
             return Ok(new
             {
@@ -89,7 +103,10 @@ namespace QuanLyNganQuyCaNhan.Controllers
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
     }

@@ -20,7 +20,14 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                   AND (@MaDanhMuc IS NULL OR MaDanhMuc = @MaDanhMuc)
                   AND (@MaVi IS NULL OR MaVi = @MaVi)
                 ORDER BY NgayGiaoDich, MaGiaoDich",
-                new { MaNguoiDung = maNguoiDung, TuNgay = tuNgay, DenNgay = denNgay, MaDanhMuc = maDanhMuc, MaVi = maVi });
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    TuNgay = tuNgay,
+                    DenNgay = denNgay,
+                    MaDanhMuc = maDanhMuc,
+                    MaVi = maVi
+                });
         }
 
         public async Task<KetQuaNhapGiaoDich> NhapGiaoDich(int maNguoiDung, Guid maYeuCau, byte[] hashFile,
@@ -35,7 +42,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 var lanCu = await ketNoi.QuerySingleOrDefaultAsync(
                     @"SELECT MaLanNhap, SoDong, HashFile FROM LanNhapGiaoDich WITH (UPDLOCK, HOLDLOCK)
                         WHERE MaNguoiDung = @MaNguoiDung AND MaYeuCau = @MaYeuCau",
-                    new { MaNguoiDung = maNguoiDung, MaYeuCau = maYeuCau }, giaoDichCSDL);
+                    new
+                    {
+                        MaNguoiDung = maNguoiDung,
+                        MaYeuCau = maYeuCau
+                    }, giaoDichCSDL);
                 if (lanCu != null)
                 {
                     if (!hashFile.SequenceEqual((byte[])lanCu.HashFile))
@@ -47,7 +58,13 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 long maLanNhap = await ketNoi.ExecuteScalarAsync<long>(@"INSERT INTO LanNhapGiaoDich
                     (MaNguoiDung, MaYeuCau, HashFile, SoDong) VALUES (@MaNguoiDung, @MaYeuCau, @HashFile, @SoDong);
                     SELECT CAST(SCOPE_IDENTITY() AS BIGINT);",
-                    new { MaNguoiDung = maNguoiDung, MaYeuCau = maYeuCau, HashFile = hashFile, SoDong = cacGiaoDich.Count }, giaoDichCSDL);
+                    new
+                    {
+                        MaNguoiDung = maNguoiDung,
+                        MaYeuCau = maYeuCau,
+                        HashFile = hashFile,
+                        SoDong = cacGiaoDich.Count
+                    }, giaoDichCSDL);
 
                 if (!await KiemTraGiaoDichHopLeTrongGiaoDich(ketNoi, giaoDichCSDL,
                     cacGiaoDich[0], cacGiaoDich.Select(x => x.MaVi)))
@@ -66,21 +83,43 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                         SELECT CAST(SCOPE_IDENTITY() AS BIGINT);", giaoDich, giaoDichCSDL);
                     await ketNoi.ExecuteAsync(@"INSERT INTO NhatKyAudit (MaNguoiDung, HanhDong, TenBang, MaBanGhi, DuLieuMoi, DiaChiIP)
                         VALUES (@MaNguoiDung, 'NHAP_FILE', 'GiaoDich', @MaBanGhi, @DuLieuMoi, @DiaChiIP)",
-                        new { MaNguoiDung = maNguoiDung, MaBanGhi = maGiaoDich.ToString(System.Globalization.CultureInfo.InvariantCulture),
-                            DuLieuMoi = JsonSerializer.Serialize(new { MaLanNhap = maLanNhap, Dong = dongHienTai,
-                                giaoDich.MaVi, giaoDich.MaDanhMuc, giaoDich.LoaiGiaoDich, giaoDich.SoTien, giaoDich.NgayGiaoDich, giaoDich.NoiDung }), DiaChiIP = diaChiIP }, giaoDichCSDL);
+                        new
+                        {
+                            MaNguoiDung = maNguoiDung,
+                            MaBanGhi = maGiaoDich.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                            DuLieuMoi = JsonSerializer.Serialize(new
+                            {
+                                MaLanNhap = maLanNhap,
+                                Dong = dongHienTai,
+                                giaoDich.MaVi,
+                                giaoDich.MaDanhMuc,
+                                giaoDich.LoaiGiaoDich,
+                                giaoDich.SoTien,
+                                giaoDich.NgayGiaoDich,
+                                giaoDich.NoiDung
+                            }),
+                            DiaChiIP = diaChiIP
+                        }, giaoDichCSDL);
                 }
                 giaoDichCSDL.Commit();
                 return new KetQuaNhapGiaoDich { MaLanNhap = maLanNhap, SoDong = cacGiaoDich.Count };
             }
             catch (SqlException ex) when (ex.Number == 547 || ex.Number == 8115)
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw new ArgumentException($"Bản ghi {dongHienTai}: số dư hoặc dữ liệu vượt ràng buộc database; toàn bộ lần nhập đã được hoàn tác", ex);
             }
             catch
             {
-                try { giaoDichCSDL.Rollback(); } catch { }
+                try
+                {
+                    giaoDichCSDL.Rollback();
+                }
+                catch { }
                 throw;
             }
         }

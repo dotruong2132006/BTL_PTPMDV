@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace QuanLyNganQuyCaNhan.BLL.Interfaces
     {
         Task<IEnumerable<Vi>> LayDanhSach(int maNguoiDung);
         Task<int> ThemVi(Vi vi);
-        Task<bool> KiemTraTenViTonTai(int maNguoiDung,string tenVi);
+        Task<bool> KiemTraTenViTonTai(int maNguoiDung, string tenVi);
         Task<bool> KiemTraNguoiDungTonTai(int maNguoiDung);
         Task<int> CapNhatVi(Vi vi);
         Task<bool> KiemTraTenViTrungKhiCapNhat(int maNguoiDung, string tenVi, int maVi);

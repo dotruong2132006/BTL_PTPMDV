@@ -18,6 +18,9 @@ namespace QuanLyNganQuyCaNhan.API.User.DTOs
         [Required(ErrorMessage = "Họ tên không được để trống")]
         public string HoTen { get; set; } = string.Empty;
 
-        public string? SoDienThoai { get; set; }
+        public string? SoDienThoai
+        {
+            get; set;
+        }
     }
 }

@@ -30,7 +30,13 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             try
             {
                 var ketQua = await nhacNhoService.LayThongBao(LayMaNguoiDungTuToken(), chiChuaDoc, trang, kichThuocTrang);
-                return Ok(new { Trang = trang, KichThuocTrang = kichThuocTrang, ketQua.TongSoBanGhi, ketQua.DanhSach });
+                return Ok(new
+                {
+                    Trang = trang,
+                    KichThuocTrang = kichThuocTrang,
+                    ketQua.TongSoBanGhi,
+                    ketQua.DanhSach
+                });
             }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
@@ -39,8 +45,16 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         public async Task<IActionResult> DanhDauDaDoc(long maThongBao)
         {
             int soDong = await nhacNhoService.DanhDauDaDoc(maThongBao, LayMaNguoiDungTuToken());
-            if (soDong == 0) return NotFound(new { ThongBao = "Không tìm thấy thông báo" });
-            return Ok(new { MaThongBao = maThongBao, ThongBao = "Đã đánh dấu thông báo đã đọc" });
+            if (soDong == 0)
+                return NotFound(new
+                {
+                    ThongBao = "Không tìm thấy thông báo"
+                });
+            return Ok(new
+            {
+                MaThongBao = maThongBao,
+                ThongBao = "Đã đánh dấu thông báo đã đọc"
+            });
         }
     }
 }

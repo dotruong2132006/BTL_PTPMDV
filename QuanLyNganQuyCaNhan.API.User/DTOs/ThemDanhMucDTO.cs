@@ -1,4 +1,4 @@
-﻿namespace QuanLyNganQuyCaNhan.API.User.DTOs
+namespace QuanLyNganQuyCaNhan.API.User.DTOs
 {
     public class ThemDanhMucDTO
     {
@@ -6,6 +6,9 @@
 
         public string LoaiDanhMuc { get; set; } = string.Empty;
 
-        public string? MoTa { get; set; }
+        public string? MoTa
+        {
+            get; set;
+        }
     }
 }

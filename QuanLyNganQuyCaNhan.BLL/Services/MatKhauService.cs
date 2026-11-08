@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +12,9 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
         {
             return BCrypt.Net.BCrypt.HashPassword(matKhau);
         }
-        public bool KiemTraMatKhau(string matKhauNhap,string matKhauDaBam)
+        public bool KiemTraMatKhau(string matKhauNhap, string matKhauDaBam)
         {
-            return BCrypt.Net.BCrypt.Verify(matKhauNhap,matKhauDaBam);
+            return BCrypt.Net.BCrypt.Verify(matKhauNhap, matKhauDaBam);
         }
     }
 }

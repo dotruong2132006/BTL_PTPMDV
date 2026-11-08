@@ -18,6 +18,9 @@ namespace QuanLyNganQuyCaNhan.DTOs
         public string MatKhauMoi { get; set; } = string.Empty;
 
         [RegularExpression(@"^\d{6}$", ErrorMessage = "Mã OTP phải gồm 6 chữ số")]
-        public string? MaOTP { get; set; }
+        public string? MaOTP
+        {
+            get; set;
+        }
     }
 }

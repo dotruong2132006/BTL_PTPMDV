@@ -21,7 +21,6 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-// Ocelot dùng middleware, không dùng MapGet/MapControllers tại Gateway.
 app.Use(async (context, next) =>
 {
     if ((HttpMethods.IsGet(context.Request.Method) || HttpMethods.IsHead(context.Request.Method))
@@ -33,7 +32,11 @@ app.Use(async (context, next) =>
 
     if (HttpMethods.IsGet(context.Request.Method) && context.Request.Path == "/health/live")
     {
-        await context.Response.WriteAsJsonAsync(new { TrangThai = "Healthy", DichVu = "QuanLyNganQuyCaNhan.API.Gateway" });
+        await context.Response.WriteAsJsonAsync(new
+        {
+            TrangThai = "Healthy",
+            DichVu = "QuanLyNganQuyCaNhan.API.Gateway"
+        });
         return;
     }
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using QuanLyNganQuyCaNhan.API.User.DTOs;
 using QuanLyNganQuyCaNhan.BLL.Interfaces;
 using QuanLyNganQuyCaNhan.DAL.Models;
@@ -20,8 +20,8 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         }
         private int LayMaNguoiDungTuToken()
         {
-            string maNguoiDung =User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
-            if (!int.TryParse(maNguoiDung,out int maNguoiDungInt))
+            string maNguoiDung = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
+            if (!int.TryParse(maNguoiDung, out int maNguoiDungInt))
             {
                 throw new Exception("Không xác định được người dùng");
             }
@@ -34,28 +34,39 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             try
             {
                 int maNguoiDung = LayMaNguoiDungTuToken();
-                var danhSach =await viService.LayDanhSach(maNguoiDung);
+                var danhSach = await viService.LayDanhSach(maNguoiDung);
                 return Ok(danhSach);
             }
             catch (Exception ex)
             {
-                return BadRequest(new{ThongBao = ex.Message});
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> ThemVi(ThemViDTO duLieu)
         {
             try
             {
-                int maNguoiDung =LayMaNguoiDungTuToken();
-                Vi vi = new Vi{MaNguoiDung = maNguoiDung,TenVi = duLieu.TenVi};
+                int maNguoiDung = LayMaNguoiDungTuToken();
+                Vi vi = new Vi { MaNguoiDung = maNguoiDung, TenVi = duLieu.TenVi };
                 int maVi = await viService.ThemVi(vi);
-                return Ok(new { MaVi = maVi, ThongBao = "Thêm ví thành công" });
+                return StatusCode(StatusCodes.Status201Created, new
+                {
+                    MaVi = maVi,
+                    ThongBao = "Thêm ví thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -64,19 +75,29 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         {
             try
             {
-                int maNguoiDung =LayMaNguoiDungTuToken();
-                Vi vi = new Vi{MaVi = maVi,MaNguoiDung = maNguoiDung,TenVi = duLieu.TenVi,TrangThai = duLieu.TrangThai};
+                int maNguoiDung = LayMaNguoiDungTuToken();
+                Vi vi = new Vi { MaVi = maVi, MaNguoiDung = maNguoiDung, TenVi = duLieu.TenVi, TrangThai = duLieu.TrangThai };
                 int soDong = await viService.CapNhatVi(vi);
                 if (soDong == 0)
                 {
-                    return NotFound(new { ThongBao = "Không tìm thấy ví" });
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy ví"
+                    });
                 }
 
-                return Ok(new { MaVi = maVi, ThongBao = "Cập nhật ví thành công" });
+                return Ok(new
+                {
+                    MaVi = maVi,
+                    ThongBao = "Cập nhật ví thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { ThongBao = ex.Message });
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 
@@ -86,16 +107,26 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             try
             {
                 int maNguoiDung = LayMaNguoiDungTuToken();
-                int soDong =await viService.XoaMemVi(maVi,maNguoiDung);
+                int soDong = await viService.XoaMemVi(maVi, maNguoiDung);
                 if (soDong == 0)
                 {
-                    return NotFound(new{ThongBao = "Không tìm thấy ví"});
+                    return NotFound(new
+                    {
+                        ThongBao = "Không tìm thấy ví"
+                    });
                 }
-                return Ok(new{MaVi = maVi,ThongBao = "Xóa ví thành công"});
+                return Ok(new
+                {
+                    MaVi = maVi,
+                    ThongBao = "Xóa ví thành công"
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new{ThongBao = ex.Message});
+                return BadRequest(new
+                {
+                    ThongBao = ex.Message
+                });
             }
         }
 

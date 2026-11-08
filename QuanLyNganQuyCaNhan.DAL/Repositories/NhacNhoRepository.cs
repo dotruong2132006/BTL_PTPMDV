@@ -1,4 +1,5 @@
 using Dapper;
+using System.Data;
 using QuanLyNganQuyCaNhan.DAL.Connections;
 using QuanLyNganQuyCaNhan.DAL.Models;
 
@@ -20,7 +21,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             return await ketNoi.QueryAsync<NhacNho>($@"SELECT {CacCot} FROM NhacNho
                 WHERE MaNguoiDung = @MaNguoiDung AND NgayXoa IS NULL
                     AND (@TrangThai IS NULL OR TrangThai = @TrangThai) ORDER BY NgayNhac, MaNhacNho",
-                new { MaNguoiDung = maNguoiDung, TrangThai = trangThai });
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    TrangThai = trangThai
+                });
         }
 
         public async Task<NhacNho?> LayTheoMa(int maNhacNho, int maNguoiDung)
@@ -28,7 +33,11 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             return await ketNoi.QuerySingleOrDefaultAsync<NhacNho>($@"SELECT {CacCot} FROM NhacNho
                 WHERE MaNhacNho = @MaNhacNho AND MaNguoiDung = @MaNguoiDung AND NgayXoa IS NULL",
-                new { MaNhacNho = maNhacNho, MaNguoiDung = maNguoiDung });
+                new
+                {
+                    MaNhacNho = maNhacNho,
+                    MaNguoiDung = maNguoiDung
+                });
         }
 
         public async Task<int> ThemNhacNho(NhacNho nhacNho)
@@ -38,7 +47,7 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 (MaNguoiDung, TieuDe, NoiDung, NgayNhac, LapLai, KieuLapLai, TrangThai, NgayNhacTiepTheo, NgayTao)
                 SELECT @MaNguoiDung, @TieuDe, @NoiDung, @NgayNhac, @LapLai, @KieuLapLai, @TrangThai, @NgayNhacTiepTheo, SYSUTCDATETIME()
                 WHERE EXISTS (SELECT 1 FROM NguoiDung WHERE MaNguoiDung = @MaNguoiDung AND TrangThai = 1 AND NgayXoa IS NULL);
-                SELECT CAST(SCOPE_IDENTITY() AS INT);", nhacNho);
+                SELECT CAST(SCOPE_IDENTITY() AS INT);", TaoThamSoNhacNho(nhacNho));
         }
 
         public async Task<int> CapNhatNhacNho(NhacNho nhacNho)
@@ -48,7 +57,7 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 NgayNhac = @NgayNhac, LapLai = @LapLai, KieuLapLai = @KieuLapLai, TrangThai = @TrangThai,
                 NgayNhacTiepTheo = @NgayNhacTiepTheo, PhienBan = PhienBan + 1, NgayCapNhat = SYSUTCDATETIME()
                 WHERE MaNhacNho = @MaNhacNho AND MaNguoiDung = @MaNguoiDung AND NgayXoa IS NULL AND PhienBan = @PhienBan
-                  AND EXISTS (SELECT 1 FROM NguoiDung WHERE MaNguoiDung = @MaNguoiDung AND TrangThai = 1 AND NgayXoa IS NULL)", nhacNho);
+                  AND EXISTS (SELECT 1 FROM NguoiDung WHERE MaNguoiDung = @MaNguoiDung AND TrangThai = 1 AND NgayXoa IS NULL)", TaoThamSoNhacNho(nhacNho));
         }
 
         public async Task<int> XoaMemNhacNho(int maNhacNho, int maNguoiDung)
@@ -57,16 +66,22 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             return await ketNoi.ExecuteAsync(@"UPDATE NhacNho SET TrangThai = 0, NgayNhacTiepTheo = NULL,
                 NgayXoa = SYSUTCDATETIME(), NgayCapNhat = SYSUTCDATETIME(), PhienBan = PhienBan + 1
                 WHERE MaNhacNho = @MaNhacNho AND MaNguoiDung = @MaNguoiDung AND NgayXoa IS NULL",
-                new { MaNhacNho = maNhacNho, MaNguoiDung = maNguoiDung });
+                new
+                {
+                    MaNhacNho = maNhacNho,
+                    MaNguoiDung = maNguoiDung
+                });
         }
 
         public async Task<IEnumerable<NhacNho>> LayDanhSachDenHan(DateTime hienTai)
         {
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
+            var thamSo = new DynamicParameters();
+            thamSo.Add("HienTai", hienTai, DbType.DateTime2);
             return await ketNoi.QueryAsync<NhacNho>($@"SELECT TOP (100) {CacCot} FROM NhacNho
                 WHERE TrangThai = 1 AND NgayXoa IS NULL AND NgayNhacTiepTheo <= @HienTai
                   AND EXISTS (SELECT 1 FROM NguoiDung nd WHERE nd.MaNguoiDung = NhacNho.MaNguoiDung AND nd.TrangThai = 1 AND nd.NgayXoa IS NULL)
-                ORDER BY NgayNhacTiepTheo, MaNhacNho", new { HienTai = hienTai });
+                ORDER BY NgayNhacTiepTheo, MaNhacNho", thamSo);
         }
 
         public async Task PhatThongBao(NhacNho nhacNho, DateTime ngayDenHan, DateTime? ngayTiepTheo)
@@ -79,24 +94,39 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                 int soLuong = await ketNoi.ExecuteScalarAsync<int>(@"SELECT COUNT(1) FROM NhacNho WITH (UPDLOCK, HOLDLOCK)
                     WHERE MaNhacNho = @MaNhacNho AND MaNguoiDung = @MaNguoiDung AND TrangThai = 1 AND NgayXoa IS NULL
                         AND PhienBan = @PhienBan AND NgayNhacTiepTheo = @NgayNhacTiepTheo
-                        AND EXISTS (SELECT 1 FROM NguoiDung nd WHERE nd.MaNguoiDung = @MaNguoiDung AND nd.TrangThai = 1 AND nd.NgayXoa IS NULL)", nhacNho, giaoDich);
+                        AND EXISTS (SELECT 1 FROM NguoiDung nd WHERE nd.MaNguoiDung = @MaNguoiDung AND nd.TrangThai = 1 AND nd.NgayXoa IS NULL)", TaoThamSoNhacNho(nhacNho), giaoDich);
                 if (soLuong == 0)
                 {
                     giaoDich.Rollback();
                     return;
                 }
+                var thamSoThongBao = new DynamicParameters(new
+                    {
+                        nhacNho.MaNhacNho,
+                        nhacNho.MaNguoiDung,
+                        nhacNho.TieuDe,
+                        nhacNho.NoiDung,
+                        NgayDenHan = ngayDenHan,
+                        NgayTiepTheo = ngayTiepTheo,
+                        TrangThai = ngayTiepTheo.HasValue
+                    });
+                thamSoThongBao.Add("NgayDenHan", ngayDenHan, DbType.DateTime2);
+                thamSoThongBao.Add("NgayTiepTheo", ngayTiepTheo, DbType.DateTime2);
                 await ketNoi.ExecuteAsync(@"INSERT INTO ThongBaoNhacNho (MaNhacNho, MaNguoiDung, TieuDe, NoiDung, NgayDenHan)
                     SELECT @MaNhacNho, @MaNguoiDung, @TieuDe, @NoiDung, @NgayDenHan
                     WHERE NOT EXISTS (SELECT 1 FROM ThongBaoNhacNho WHERE MaNhacNho = @MaNhacNho AND NgayDenHan = @NgayDenHan);
                     UPDATE NhacNho SET NgayNhacTiepTheo = @NgayTiepTheo, TrangThai = @TrangThai,
                         NgayCapNhat = SYSUTCDATETIME(), PhienBan = PhienBan + 1 WHERE MaNhacNho = @MaNhacNho;",
-                    new { nhacNho.MaNhacNho, nhacNho.MaNguoiDung, nhacNho.TieuDe, nhacNho.NoiDung,
-                        NgayDenHan = ngayDenHan, NgayTiepTheo = ngayTiepTheo, TrangThai = ngayTiepTheo.HasValue }, giaoDich);
+                    thamSoThongBao, giaoDich);
                 giaoDich.Commit();
             }
             catch
             {
-                try { giaoDich.Rollback(); } catch { }
+                try
+                {
+                    giaoDich.Rollback();
+                }
+                catch { }
                 throw;
             }
         }
@@ -111,7 +141,13 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
                     WHERE MaNguoiDung = @MaNguoiDung AND (@ChiChuaDoc = 0 OR NgayDoc IS NULL)
                     ORDER BY MaThongBao DESC OFFSET @ViTri ROWS FETCH NEXT @KichThuocTrang ROWS ONLY;";
             using var ketQua = await ketNoi.QueryMultipleAsync(cauLenh,
-                new { MaNguoiDung = maNguoiDung, ChiChuaDoc = chiChuaDoc, ViTri = (long)(trang - 1) * kichThuocTrang, KichThuocTrang = kichThuocTrang });
+                new
+                {
+                    MaNguoiDung = maNguoiDung,
+                    ChiChuaDoc = chiChuaDoc,
+                    ViTri = (long)(trang - 1) * kichThuocTrang,
+                    KichThuocTrang = kichThuocTrang
+                });
             int tong = await ketQua.ReadSingleAsync<int>();
             return (await ketQua.ReadAsync<ThongBaoNhacNho>(), tong);
         }
@@ -121,7 +157,20 @@ namespace QuanLyNganQuyCaNhan.DAL.Repositories
             using var ketNoi = ketNoiCSDL.TaoKetNoi();
             return await ketNoi.ExecuteAsync(@"UPDATE ThongBaoNhacNho SET NgayDoc = COALESCE(NgayDoc, SYSUTCDATETIME())
                 WHERE MaThongBao = @MaThongBao AND MaNguoiDung = @MaNguoiDung",
-                new { MaThongBao = maThongBao, MaNguoiDung = maNguoiDung });
+                new
+                {
+                    MaThongBao = maThongBao,
+                    MaNguoiDung = maNguoiDung
+                });
+        }
+
+        private static DynamicParameters TaoThamSoNhacNho(NhacNho nhacNho)
+        {
+            // Giữ độ chính xác của cột datetime2 khi lưu và kiểm tra lịch đang xử lý.
+            var thamSo = new DynamicParameters(nhacNho);
+            thamSo.Add("NgayNhac", nhacNho.NgayNhac, DbType.DateTime2);
+            thamSo.Add("NgayNhacTiepTheo", nhacNho.NgayNhacTiepTheo, DbType.DateTime2);
+            return thamSo;
         }
     }
 }

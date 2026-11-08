@@ -25,6 +25,8 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         }
 
         [HttpPost("import")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Consumes("multipart/form-data")]
         [RequestSizeLimit(6 * 1024 * 1024)]
         public async Task<IActionResult> NhapFile([FromForm] NhapFileGiaoDichDTO duLieu)
@@ -32,14 +34,22 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
             try
             {
                 if (duLieu.File == null || duLieu.File.Length == 0 || duLieu.File.Length > GiaoDichFileService.GioiHanDungLuong)
-                    return BadRequest(new { ThongBao = "Chọn file có dữ liệu và không vượt quá 5 MB" });
+                    return BadRequest(new
+                    {
+                        ThongBao = "Chọn file có dữ liệu và không vượt quá 5 MB"
+                    });
                 using var stream = new MemoryStream();
                 await duLieu.File.CopyToAsync(stream, HttpContext.RequestAborted);
                 var ketQua = await giaoDichFileService.NhapFile(LayMaNguoiDungTuToken(), duLieu.MaYeuCau,
                     duLieu.File.FileName, stream.ToArray(), HttpContext.Connection.RemoteIpAddress?.ToString());
-                return Ok(new { ketQua.MaLanNhap, ketQua.SoDong, ketQua.DaNhapTruoc,
+                return StatusCode(ketQua.DaNhapTruoc ? StatusCodes.Status200OK : StatusCodes.Status201Created, new
+                {
+                    ketQua.MaLanNhap,
+                    ketQua.SoDong,
+                    ketQua.DaNhapTruoc,
                     ThongBao = ketQua.DaNhapTruoc ? "Lần nhập đã xử lý trước đó; không tạo giao dịch trùng" : "Nhập giao dịch thành công",
-                    NhacNho = "Tải lại ví và ngân sách để xem số dư và cảnh báo chi tiêu mới" });
+                    NhacNho = "Tải lại ví và ngân sách để xem số dư và cảnh báo chi tiêu mới"
+                });
             }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
@@ -59,7 +69,10 @@ namespace QuanLyNganQuyCaNhan.API.User.Controllers
         [HttpGet("mau-file")]
         public async Task<IActionResult> LayFileMau([FromQuery] string dinhDang = "csv")
         {
-            try { return TraFile(await giaoDichFileService.TaoFileMau(dinhDang), dinhDang, "mau-giao-dich"); }
+            try
+            {
+                return TraFile(await giaoDichFileService.TaoFileMau(dinhDang), dinhDang, "mau-giao-dich");
+            }
             catch (ArgumentException ex) { return BadRequest(new { ThongBao = ex.Message }); }
         }
 

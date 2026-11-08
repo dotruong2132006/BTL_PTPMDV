@@ -68,8 +68,10 @@ namespace QuanLyNganQuyCaNhan.BLL.Services
 
         private bool KiemTra2FA(NguoiDung nguoiDung, string? maOTP)
         {
-            if (!nguoiDung.DaBat2FA) return true;
-            if (string.IsNullOrWhiteSpace(nguoiDung.MaBiMat2FA) || string.IsNullOrWhiteSpace(maOTP)) return false;
+            if (!nguoiDung.DaBat2FA)
+                return true;
+            if (string.IsNullOrWhiteSpace(nguoiDung.MaBiMat2FA) || string.IsNullOrWhiteSpace(maOTP))
+                return false;
             return haiFaService.KiemTraMaOTP(nguoiDung.MaBiMat2FA, maOTP.Trim());
         }
 

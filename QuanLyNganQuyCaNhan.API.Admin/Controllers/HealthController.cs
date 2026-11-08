@@ -10,7 +10,10 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
     public class HealthController : ControllerBase
     {
         private readonly HealthCheckService healthCheckService;
-        public HealthController(HealthCheckService healthCheckService) { this.healthCheckService = healthCheckService; }
+        public HealthController(HealthCheckService healthCheckService)
+        {
+            this.healthCheckService = healthCheckService;
+        }
 
         [HttpGet]
         public async Task<IActionResult> KiemTra()
@@ -18,9 +21,16 @@ namespace QuanLyNganQuyCaNhan.API.Admin.Controllers
             var ketQua = await healthCheckService.CheckHealthAsync(HttpContext.RequestAborted);
             Response.Headers.CacheControl = "no-store";
             return StatusCode(ketQua.Status == HealthStatus.Healthy ? 200 : 503,
-                new { TrangThai = ketQua.Status.ToString(),
-                    ThanhPhan = ketQua.Entries.Select(x => new { Ten = x.Key,
-                        TrangThai = x.Value.Status.ToString(), MoTa = x.Value.Description }) });
+                new
+                {
+                    TrangThai = ketQua.Status.ToString(),
+                    ThanhPhan = ketQua.Entries.Select(x => new
+                    {
+                        Ten = x.Key,
+                        TrangThai = x.Value.Status.ToString(),
+                        MoTa = x.Value.Description
+                    })
+                });
         }
     }
 }

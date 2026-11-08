@@ -7,7 +7,10 @@ namespace QuanLyNganQuyCaNhan.API.Shared.HealthChecks
     public class KetNoiCSDLHealthCheck : IHealthCheck
     {
         private readonly DapperConnectionFactory ketNoiCSDL;
-        public KetNoiCSDLHealthCheck(DapperConnectionFactory ketNoiCSDL) { this.ketNoiCSDL = ketNoiCSDL; }
+        public KetNoiCSDLHealthCheck(DapperConnectionFactory ketNoiCSDL)
+        {
+            this.ketNoiCSDL = ketNoiCSDL;
+        }
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
