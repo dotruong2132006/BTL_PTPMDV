@@ -1,5 +1,4 @@
-﻿-- Script khoi tao database moi, cap nhat theo project ngay 08/10/2026.
--- Database dang su dung: ap dung migration trong project thay vi chay lai script tao bang.
+
 IF DB_ID(N'QuanLyNganQuyCaNhan') IS NULL BEGIN
 CREATE DATABASE QuanLyNganQuyCaNhan;
 
