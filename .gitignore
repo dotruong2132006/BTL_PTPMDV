@@ -58,3 +58,13 @@ Desktop.ini
 **/Migrations/
 **/migrations/
 **/migrations/
+docker/
+docs/
+.dockerignore
+.dockerignore.txt
+.editorconfig
+.prettierignore
+.prettierrc.json
+Dockerfile
+Dockerfile.API.Chung
+compose.yaml
