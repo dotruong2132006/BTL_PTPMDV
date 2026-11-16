@@ -1,0 +1,150 @@
+name: quanlynganquycanhan
+
+x-cau-hinh-api: &cau-hinh-api
+  ASPNETCORE_ENVIRONMENT: Production
+  ASPNETCORE_URLS: http://+:8080
+  TZ: Asia/Bangkok
+
+  ConnectionStrings__KetNoiCSDL: "Server=sqlserver,1433;Database=QuanLyNganQuyCaNhan;User Id=qlnq_app;Password=${SQL_APP_PASSWORD:?Chua dat mat khau ung dung};Encrypt=True;TrustServerCertificate=True;"
+
+  Jwt__Key: "${JWT_KEY:?Chua dat khoa JWT}"
+  Jwt__Issuer: QuanLyNganQuyCaNhan
+  Jwt__Audience: QuanLyNganQuyCaNhan.Client
+  Jwt__ThoiGianHetHanPhut: "30"
+
+  ApiGateway__ProxyTinCay__0: "172.30.90.10"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Chua dat mat khau SQL}"
+      TZ: Asia/Bangkok
+
+    ports:
+      - "127.0.0.1:14330:1433"
+
+    volumes:
+      - du-lieu-sql:/var/opt/mssql
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'SQLCMDPASSWORD="$$MSSQL_SA_PASSWORD" /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -b -Q "SELECT 1" -o /dev/null'
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 20
+
+    restart: unless-stopped
+
+  dung-chung:
+    image: qlnq-api-chung:1.0
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_PATH: QuanLyNganQuyCaNhan/QuanLyNganQuyCaNhan.API.csproj
+        APP_DLL: QuanLyNganQuyCaNhan.API.dll
+
+    environment:
+      <<: *cau-hinh-api
+
+    ports:
+      - "127.0.0.1:8081:8080"
+
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+  nguoi-dung:
+    image: qlnq-api-user:1.0
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_PATH: QuanLyNganQuyCaNhan.API.User/QuanLyNganQuyCaNhan.API.User.csproj
+        APP_DLL: QuanLyNganQuyCaNhan.API.User.dll
+
+    environment:
+      <<: *cau-hinh-api
+      NhacNho__BatWorker: "true"
+      BaoCao__BatWorker: "true"
+
+    ports:
+      - "127.0.0.1:8082:8080"
+
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+  admin:
+    image: qlnq-api-admin:1.0
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_PATH: QuanLyNganQuyCaNhan.API.Admin/QuanLyNganQuyCaNhan.API.Admin.csproj
+        APP_DLL: QuanLyNganQuyCaNhan.API.Admin.dll
+
+    environment:
+      <<: *cau-hinh-api
+
+    ports:
+      - "127.0.0.1:8083:8080"
+
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+  gateway:
+    image: qlnq-gateway:1.0
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_PATH: QuanLyNganQuyCaNhan.API.Gateway/QuanLyNganQuyCaNhan.API.Gateway.csproj
+        APP_DLL: QuanLyNganQuyCaNhan.API.Gateway.dll
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    volumes:
+      - ./docker/QuanLyNganQuyCaNhan.Ocelot.Docker.json:/app/QuanLyNganQuyCaNhan.Ocelot.json:ro
+
+    depends_on:
+      - dung-chung
+      - nguoi-dung
+      - admin
+
+    networks:
+      default:
+        ipv4_address: 172.30.90.10
+
+    restart: unless-stopped
+
+volumes:
+  du-lieu-sql:
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.30.90.0/24
