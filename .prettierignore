@@ -1,0 +1,13 @@
+.git/
+.vs/
+.codex/
+.codex-build/
+**/bin/
+**/obj/
+**/node_modules/
+**/ThuVien/
+**/Fonts/
+database/backups/
+appsettings*.json
+!appsettings.example.json
+*.user
